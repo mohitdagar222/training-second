@@ -1,0 +1,786 @@
+
+**rvm installation
+https://www.how2shout.com/linux/how-to-install-rvm-ruby-version-manager-on-ubuntu-20-04-lts/
+
+**Pre-requisites-
+sudo apt-get install software-properties-common
+	
+**Add the PPA and install the package-
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get install rvm
+	
+**Add your user to rvm group ($USER will automatically insert your username):
+sudo usermod -a -G rvm $USER
+
+**Change your terminal window
+At terminal window, click Edit > Profile Preferences, click on Title and Command tab and check Run command as login shell.
+
+**now reboot the system
+
+**Enable local gemsets
+rvm user gemsets
+
+**Install a ruby
+rvm install ruby
+sudo apt  install ruby
+
+**now install ruby versions
+rvm install 2.7.5
+rvm install 2.5.7
+
+------------------------------------------------
+**rvm basic commands
+
+beryl@beryl-ThinkPad-L412:~$ rvm list
+=> ruby-2.1.0 [ x86_64 ]
+ * ruby-2.7.5 [ x86_64 ]
+   ruby-3.0.0 [ x86_64 ]
+
+# => - current
+# =* - current && default
+#  * - default
+
+beryl@beryl-ThinkPad-L412:~$ rvm use 2.1.0
+Using /home/beryl/.rvm/gems/ruby-2.1.0
+
+
+beryl@beryl-ThinkPad-L412:~$ rvm install 2.5.7
+
+beryl@beryl-ThinkPad-L412:~$ rvm -v
+rvm 1.29.12 (manual) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
+
+
+beryl@beryl-ThinkPad-L412:~$ ruby -v
+ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]
+
+-------------------------------------------------------------
+**BEGIN STATEMENT,END STATEMENT,HERE DOCUMENT
+
+**Simple Program =puts "Hello ,Mohit Dagar!"
+Output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+Hello ,Mohit Dagar!
+
+
+**HERE DOCUMENT
+print <<ai  # simple to write strings
+Hello this is here document in ruby
+This is last line.
+ai
+
+print <<"am"
+Hello this is another type
+This is last line 
+am
+
+ print <<`aj`   #to execute commands
+
+echo it is another type
+echo it is last 
+aj
+
+print <<"fo",<<"lo"  #to build stack
+
+this is fo line
+fo
+this is lo line
+lo
+
+OUTPUT-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+Hello this is here document in ruby
+This is last line.
+Hello this is another type
+This is last line 
+it is another type
+it is last
+
+this is fo line
+this is lo line
+
+
+
+** BEGIN STATEMENT
+
+
+puts "hello world"
+
+BEGIN{
+
+puts "statement to be printed before code execution"
+}
+
+OUTPUT:
+beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+statement to be printed before code execution
+hello world
+
+
+**END STATEMENT
+
+
+puts "this is main program"
+
+
+END{
+puts "this is end code of the program"
+}
+BEGIN{
+
+puts "this is begining of the program"
+}
+
+OUTPUT-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+this is begining of the program
+this is main program
+this is end code of the program
+
+
+-------------------------------------------------
+Class and Objects
+
+A class is a blueprint from which objects are created. The object is also called as an instance of a class. For Example, the animal is a class and mammals, birds, fish, reptiles, and amphibians are the instances of the class
+Syntax-
+class Class_name
+
+end
+
+Object-object_name = Class_name.new
+
+
+In Ruby member functions are called as methods. Every method is defined by the def keyword followed by a method name. The name of the method is always in lowercase and the method ends with end keyword. In Ruby, each class and methods end with end keyword.
+
+-------------------------------------------------
+
+Variables-
+
+Ruby Global Variables-A global variable name always starts with $. If you want to have a single variable, which is available across classes, you need to define a global variable.
+
+$global_variable=20
+
+class Class1
+	def method
+		puts "calling global varible by first class value is #$global_variable"
+
+	end
+end
+
+class Class2
+	def methods
+
+		puts "calling global variable my class 2 whose value is #$global_variable"
+	end
+end
+
+obj1=Class1.new
+obj2=Class2.new
+obj1.method
+obj2.methods
+Output-
+
+beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+calling global varible by first class value is 20
+calling global variable my class 2 whose value is 20
+
+
+
+**Ruby Local Variables:it has access in that particular method. A local variable name always starts with a lowercase letter(a-z) or underscore (_). These variables are local to the code construct in which they are declared. A local variable is only accessible within the block of its initialization. 
+
+**Ruby Class Variables: it is same for all objects. A class variable name always starts with @@ sign.It is available across different objects. Another way of thinking about class variables is as global variables within the context of a single class.object cant change its value.
+
+class Students
+@@studentn=0
+def initialize(id,name,add)
+	@id=id
+	@name=name
+	@add=add
+end
+
+def display()
+	puts "id is #@id"
+	puts "name is #@name"
+	puts "add is #@add"
+end
+
+def student_number()
+	
+	@@studentn=@@studentn + 1
+	puts "student numbers is #@@studentn"
+end
+end
+
+st1=Students.new("1","krishan","hodal")
+st2=Students.new("2","mohit","palwal")
+
+st1.display()
+st1.student_number()
+st2.display()
+st2.student_number()
+
+Output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+id is 1
+name is krishan
+add is hodal
+student numbers is 1
+id is 2
+name is mohit
+add is palwal
+student numbers is 2
+
+
+
+**Ruby Instance Variables: these changes for object to object and these are available across methods for any particular object.An instance variable name always starts with a @ sign. Instance variables are available across methods for any specified instance or object i.e. instance variables can change from object to object
+
+Output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+id is 1
+name is krishan
+add is hodal
+id is 2
+name is mohit
+add is palwal
+
+
+--------------------------------------------------------
+
+
+Operators :
+
+
+(a) Ruby Arithmetic operators :
+
+Assume variable a=5 and b=10 , 
+
++   - 15 ((a+b)It add both values)
+
+-   - -5 ((a-b), it subtract second value from first value)
+
+*   - 50 ((a*b), it multiply both values)
+
+/   - 2 ((b/a), it divides b by a)
+
+%   - 0 ((b%a), it gives the remainder of b/a)
+
+**  - (a**b), it will give the 5 to the power 10.
+
+(b) Ruby Comparision Operators :
+
+These are used for compare values or conditions,
+
+Assume a=5 and b=10 ,
+
+==     - FALSE (it gives true if a is equals to b otherwise false).
+
+!=     - TRUE (it gives true when a is not equals to b otherwise false)
+
+<      - TRUE (it gives true if a is less than b otherwise false)
+
+>      - FALSE (it gives true if a is greater than b otherwise false)
+
+<=     - TRUE (it gives true if a is less than or equals to b otherwise false)
+
+>=     - FALSE (it gives true if a is greater than or equals to b otherwise false)
+
+<=>    - -1 (0 if a equals to b,1 if a is greater than b and -1 if a is less than b)
+
+===    - (1...10)===5 returns TRUE (1...10 means 1,2,3,4,5,6,7,8,9)
+
+.eql?  - it will check type and value also .
+
+
+
+(c) Ruby Assignment Operators
+
+These operators are used for assigning values to variables.
+
+=       - it is used for assign values. (a=5 or c=a+b)
+
++=      - c += a , c=c+a
+
+-=      - c -= a , c=c-a
+
+*=      - c *= a , c=c*a
+
+/=      - c /= a , c=c/a
+
+%=      - c %= a , c=c%a
+
+(d) Ruby Parallel operators
+
+it is used for multiple variables initialization in single line.
+
+Ex - 
+
+a,b,c = 12,52,98
+
+it is also used for swapping values
+
+Ex - 
+
+a=2
+b=3
+
+a,b=b,a
+
+puts(a,b)
+
+OUTPUT :
+
+3
+2
+
+(e) Ruby Logical Operators
+
+AND or &&    - if both the conditions are true then return true otherwise false. 
+
+OR  or ||    - if both the conditions are false then return false otherwise true.
+
+NOT or !     - it is used for reverse the logical operator. it gives !(true) = false and vice-versa.
+
+(f) Ruby Range Operators
+
+..           - (1..10) gives range from 1 to 10.
+
+...          - (1...10) gives range from 1 to 9.
+
+(g) Ruby ternary Operators
+
+Firstly it evaluates the condition , if condition is true it returns first value otherwise second.
+
+For Example : 
+
+a=5
+if(a==5)?puts("yes"):puts("no")
+end
+
+OUTPUT :
+
+yes
+
+--------------------------------------------------------
+
+**Ruby multiple comments and conditions in ruby-
+
+puts "Hello, Ruby!"
+
+=begin
+This is a multiline comment lines as you
+like. But =begin and =end should come in the first line only. 
+=end
+
+**IF ELSE PROGRAM
+x = 3
+
+if x>4
+	puts "x is greater than 4"
+
+elsif x<4
+	puts"x is less than 4"
+
+else
+	puts "number is 4"
+
+end
+
+Output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+x is less than 4
+
+**use if modifier
+$name="ram"
+
+puts "name verified \n" if $name =='ram'
+output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+name verified
+
+
+
+
+** unless modifier-executes code if condition is false
+$mohit="name"
+
+$name="ram"
+
+puts "name not verified\n" unless $name =='shyam'
+output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+name not verified
+
+
+**Ruby Case Statement-
+
+@age=25
+case @age
+when 0 .. 5
+    puts "baby"
+when 6 .. 20
+    puts "child"
+when 21 .. 30
+    puts "mature"
+else 
+    puts"old"
+end
+
+Output-
+mature
+
+--------------------------------------------------------------------
+
+**LOOPS
+
+**WHILE LOOP
+
+$i=1
+$n=4
+while $i <$n do
+    puts "the value of i is #$i"
+    $i+=1
+end
+
+Output-
+beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+the value of i is 1
+the value of i is 2
+the value of i is 3
+
+**while mofifier
+
+@i=0
+@n=3
+begin
+    puts "value of i is #@i"
+    @i+=1
+end while @i < @n
+
+Output-value of i is 0
+value of i is 1
+value of i is 2
+
+**UNTIL STATEMENT-executes while conditional is false
+
+i=0
+n=3
+until i>3 do
+    puts "i is #{i}"
+    i+=1
+end 
+Output-beryl@beryl-ThinkPad-L412:~/Documents$ ruby test.rb
+i is 0
+i is 1
+i is 2
+i is 3
+
+
+**UNTIL MODIFIER
+
+i=0
+n=4
+begin
+    puts "value of i is #{i}"
+    i+=1
+end until i>3
+Output-value of i is 0
+value of i is 1
+value of i is 2
+value of i is 3
+
+
+**FOR LOOP
+
+
+for i in 0 ..3 do
+    puts "value of i is #{i}"
+    i+=1
+end
+oUTPUT-value of i is 0
+value of i is 1
+value of i is 2
+value of i is 3
+
+
+**BREAK STATEMENT-it terminates the most inner loop
+
+
+for i in 0 ..4 do
+    if i >2 
+        break
+    end
+    puts "value of i is #{i}"
+end
+
+Output-value of i is 0
+value of i is 1
+value of i is 2
+
+
+**NEXT STATEMENT-jumps to the next iteration of the most internal loop
+
+for i in 0 ..4 do
+    if i <2 then
+        next
+    end
+    puts "value of i is #{i}"
+end
+
+Output-value of i is 2
+value of i is 3
+value of i is 4
+
+
+**REDO STATEMENT-restart the iteration of thr most internal loop
+
+for i in 0 ..4 do
+    if i <2 then
+        puts "value of i is #{i}"
+        redo
+    end
+   
+end
+Output-value of i is 0
+value of i is 0
+value of i is 0
+--------------
+
+-------------------------------------------------------------------
+
+**METHODS
+def walking(distance=23,speed=90)
+    puts "distance covered is #{distance}\nyour speed is #{speed}"
+end
+walking
+walking('twenty', 'fifty')
+Output-distance covered is 23
+your speed is 90
+distance covered is twenty
+your speed is fifty
+
+
+**RETURN STATEMENT-
+
+def values
+    a=2
+    b=3
+    c=4
+    return a,b,c
+end
+var=values
+puts var
+Output-2
+3
+4
+
+**METHODS WITH VARIABLE NUMBER OF ARGUMENTS-
+
+def sample(*test)
+    puts "number of parameters are #{test.length}"
+    for i in test do
+        puts "parameters are #{i}"
+    end
+end
+sample('ram','mohit',2)
+sample('krishan','sanju')
+Output-
+number of parameters are 3
+parameters are ram
+parameters are mohit
+
+parameters are 2
+number of parameters are 2
+parameters are krishan
+parameters are sanju
+
+
+** CLASS METHODS-Ruby gives you a way to access a method without creating objectof a class
+
+class Test
+    def Test.sample
+        puts "this is class method"
+    end
+
+Test.sample
+end
+Output-
+this is class method
+
+-----------------------------------------------------------------------
+
+**BLOCKS-A block consists of chunks of code.You assign a name to a block.The code in the block is always enclosed within braces ({}).You invoke a block by using the yield statement.
+
+**YIELD STATEMENT-
+
+def test
+   puts "You are in the method"
+   yield
+   puts "You are again back to the method"
+   yield
+end
+test {puts "You are in the block"}
+oUTPUT-
+You are in the method
+You are in the block
+You are again back to the method
+You are in the block
+
+
+** parameters with the yield statement
+
+def test
+   yield 5
+   puts "You are in the method test"
+   yield 100
+end
+test {|i| puts "You are in the block #{i}"}
+
+Output-
+You are in the block 5
+You are in the method test
+You are in the block 100
+
+
+**another way of calling blocks
+
+def mohit(&block)
+    puts "you are in method"
+    block.call(1)
+end
+mohit{ |i| puts "you are in block #{i}"}
+
+Output-you are in method
+you are in block 1
+
+
+-----------------------------------------------
+
+**MODULES-Modules are a way of grouping together methods ,classes and constants
+
+module module_name
+content
+end
+method syntax in modules-
+def module_name.method_name()
+end
+
+access constant in module-
+puts module_name::Num
+
+
+
+
+**trig.rb
+module Trig
+
+    def Trig.fun(param)
+       puts "this is #{param}" 
+    end
+ 
+end
+
+ **test.rb
+$LOAD_PATH << '.'
+require 'trig'
+
+Trig.fun('mohit')
+
+Output-this is mohit
+
+
+----------------------------------------------------------------------------------------------------
+
+**RANGES-
+
+**ranges as sequence
+(1..5)        #==> 1, 2, 3, 4, 5
+(1...5)       #==> 1, 2, 3, 4 #excludes 5
+
+**ranges as interval test
+if ((1..10) === 5)
+   puts "5 lies in (1..10)"
+end
+
+Output-5 lies in (1..10)
+
+**ranges as list
+range1 = (1..10).to_a  #we can convert a range into a list
+puts "#{range1}"
+
+Output-[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+**ranges can be used in case statement
+
+**ranges as condition-
+while gets
+   print if /start/../end/
+end
+
+
+
+**some methods with ranges
+
+
+values =1..5
+
+if values.include?3
+    puts "exists"
+end
+
+max=values.max
+puts max
+
+min=values.min
+puts min
+
+values.each do|values|
+    puts "values are #{values}"
+end
+
+Output-
+exists
+5
+1
+values are 1
+values are 2
+values are 3
+values are 4
+values are 5
+
+----------------------------------------------------------------------------------------------
+
+**RUBY ITERATORS
+
+**collection-objects that store group of data members ex array,hash
+
+**each iterator
+
+values =[1,2,3,5]
+
+values.each do|v|
+    puts v
+end
+Output-
+1
+2
+3
+4
+5
+
+**collect iterator
+a = [1,2,3]
+b = a.collect{|i| i}
+puts b
+Output-
+1
+2
+3
+
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

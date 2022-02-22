@@ -1,0 +1,89 @@
+@import "bootstrap/scss/bootstrap";
+
+body {
+  font-family: "pangolin";
+}
+
+#footer {
+  background-color: aqua;
+  color: red;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  padding: 2px;
+}
+
+h3 {
+  margin-left: 900px;
+  color: red;
+  font-size: 25px;
+}
+h2 {
+  color: red;
+}
+
+#form2 {
+  margin: 20px 310px;
+  border-radius: 5px;
+  border: solid black 3px;
+
+  padding-top: 2px;
+  padding-bottom: 10px;
+  padding-left: 8px;
+}
+
+.label {
+  font-size: 22px;
+  float: left;
+  margin-left: 50px;
+  margin-top: 7px;
+  color: black;
+  font-weight: normal;
+}
+#user_name,
+#user_dob,
+#user_address,
+#user_password,
+#user_password_confirmation,
+#product_name,
+#product_price,
+#user_email {
+  font-size: 15px;
+  margin-right: 110px;
+  float: right;
+  margin-top: 5px;
+  width: 300px;
+  color: black;
+  border-radius: 4px;
+  padding: 4px;
+  height: 30px;
+  color: red;
+}
+#customRange2 {
+  font-size: 15px;
+  margin-right: 600px;
+  float: right;
+  margin-top: 5px;
+  width: 400px;
+
+  border-radius: 4px;
+  padding: 4px;
+  height: 30px;
+}
+#search_field {
+  margin-top: 10px;
+}
+
+#t {
+  margin-left: 80px;
+  font-size: 20px;
+  color: rgb(21, 223, 14);
+}
+table,
+th,
+td {
+  padding: 18px;
+  border-collapse: collapse;
+  font-size: 20px;
+  color: red;
+}

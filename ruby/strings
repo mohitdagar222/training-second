@@ -1,0 +1,1238 @@
+
+**Strings-A String object in Ruby holds and manipulates an arbitrary sequence of one or more bytes, typically representing characters that represent human language.
+
+**If you need to place an apostrophe within a single-quoted string literal, precede it with a backslash, so that the Ruby interpreter does not think that it terminates the string −
+
+puts 'this is mohit\'s book'
+
+Output-
+this is mohit's book
+
+--------------------------------------------------
+
+**String Methods-
+1)sub and sub!
+
+*sub -substitute the string temporarily and only first string if two same are available if we again use that string than it will be in its original form
+
+name= "mohit"
+puts name.sub("it",'ini')
+puts name
+Output-
+mohini
+mohit
+
+*sub! -substitute the string permanently
+
+
+name= "mohit"
+puts name.sub!("it",'ini')
+puts name
+
+2)gsub-Gsub is closest to a “replace string” method,gsub! change a string permanently
+
+value='hello'
+puts value
+puts value.sub('l','*')
+puts value.gsub('l','*')
+
+Output-
+hello
+he*lo
+he**o
+
+3)methods for creating a string-
+
+**new-With no arguments, returns the empty string with the Encoding ASCII-8BIT:
+s = String.new
+s.encoding  #output-Encoding:ASCII-8BIT
+
+s=String.new('my name')
+s.encoding #output-Encoding:UTF-8
+
+
+**capacity-With keyword capacity, returns a copy of str; the given capacity may set the size of the internal buffer, which may affect performance:
+String.new(capacity: 1)
+The string, encoding, and capacity arguments may all be used together:
+String.new('hello', encoding: 'UTF-8', capacity: 25)
+
+**try_convert-Returns a new string created from a given object.
+
+4)Methods for a Frozen/Unfrozen Strings
+**freeze a string
+a=String.new('hello')
+a.freeze
+a.replace('welcome')
+
+Output-can't modify frozen String: "hello" (FrozenError)
+
+**check string frozen or not-
+
+a=String.new('hello')
+a.freeze
+b=String.new('welcome')
+puts a.frozen?
+puts b.frozen?
+
+Output- true
+	false
+
+
+5) Methods for Querying String-
+
+**length
+a=String.new('hello')
+puts a.length
+
+Output-5
+
+**When the single Integer argument index is given, returns the 1-character substring found in self at offset index:
+
+a=String.new('hello')
+puts a[2]
+puts a[2]
+
+Output-l
+o
+
+**empty?
+a=String.new('hello')
+puts a.empty?
+
+Output-false
+
+**bytesize-return the count of bytes
+a=String.new('hello')
+puts a.bytesize
+
+Output-5
+
+**count-Returns the count of substrings matching given strings.
+It is used for count the substring or specific characters.
+
+Example :
+
+a=String.new('hello this is mohit')
+puts a.count "hm"  # it counts the both h or m
+
+
+Output-4
+
+
+
+6)Substrings
+
+** =~
+Returns the index of the first substring that matches a given Regex
+
+a=String.new('hello')
+puts a =~ /e/  # it counts the both h or m
+
+Output-1
+
+**index-Returns the index of the first occurrence of a given substring
+a=String.new('hello this is me mohit dagar') 
+puts a.index('da')
+
+Output-23
+
+**rindex-Returns the index of the last occurrence of a given substring;
+
+a=String.new('hello this is me mohit dagar') 
+puts a.rindex('l')
+
+Output-3
+
+**include? -Returns true if the string contains a given substring;
+
+a=String.new('hello this is me mohit dagar') 
+puts a.include?('z')
+Output-false
+
+**match-Returns a MatchData object if the string matches a given Regexp
+
+a=String.new('hello this is me mohit dagar') 
+puts a.match('is')
+
+Output- is
+
+
+**match? -Returns true if the string matches a given Regexp
+
+a=String.new('hello this is me mohit dagar') 
+puts a.match?('mohit')
+
+Output-true
+
+**start_with? -Returns true if the string begins with any of the given substrings.
+
+a=String.new('hello this is me mohit dagar') 
+puts a.start_with?('mohit')
+Output-false
+
+
+**end_with? -Returns true if the string ends with any of the given substrings.
+
+a=String.new('hello this is me mohit dagar') 
+puts a.end_with?('dagar')
+Output-true
+
+
+
+7)ENCODINGS
+
+**encoding-Returns the Encoding object that represents the encoding of the string.
+
+a=String.new('hello this is me mohit dagar') 
+ a.force_encoding('ascii')
+puts a.encoding
+Output- us-ascii
+
+**unicode_normalized? -Returns true if the string is in Unicode normalized form; false otherwise.
+
+a=String.new('hello this is me mohit dagar') 
+
+puts a.unicode_normalized?
+
+Output-true
+
+**valid_encoding? - Returns true if the string contains only characters that are valid for its encoding
+
+a=String.new("\xC4") 
+
+puts a.force_encoding('utf-8').valid_encoding?
+Output-false
+
+
+**ascii_only? -Returns true if the string has only ASCII characters; false otherwise.
+
+a=String.new("abc\u{6666}") 
+
+puts a.force_encoding("utf-8").ascii_only?
+Output-false
+
+
+
+8)OTHER
+
+**sum-it gives the sum of binary values of each byte of string
+
+a=String.new("hello my name is mohit") 
+
+puts a.sum
+Output-2072
+
+**hash-Returns the integer hash code.
+
+a=String.new("MO") 
+
+puts a.hash
+Output-3496035914710599144
+
+
+
+9)Methods for Comparing-
+
+** == -Returns true if a given other string has the same content as self.
+
+
+a=String.new("mohit") 
+b='mohitdagar'
+puts a==b
+Output-false
+
+
+**eql? -Returns true if the content is the same as the given other string.
+
+a=String.new("mohit") 
+b='mohitdagar'
+puts a.eql? b
+
+Output-false
+
+
+
+**<=> Returns -1, 0, or 1 as a given other string is smaller than, equal to, or larger than self.
+
+a=String.new("mohit") 
+b='mohitdagar'
+puts a <=> b
+
+Output=-1
+
+
+**casecmp-Ignoring case, returns -1, 0, or 1 as a given other string is smaller than, equal to, or larger than self.
+
+a=String.new("mohit") 
+b='mohi'
+puts a.casecmp b
+
+Output-1
+
+
+**casecmp? -Returns true if the string is equal to a given string after Unicode case folding; false otherwise.
+
+
+a=String.new("mohit") 
+b='mohi'
+puts a.casecmp? b
+
+Output-false
+
+
+
+
+9)METHODS FOR MODIFYING A STRING
+
+**insert-to add any character in between a string by specifying index
+
+a=String.new("mohi") 
+puts a.insert(-1,'ni')
+
+Output-mohini
+
+
+** << concatenate a string
+
+a=String.new("mohi") 
+puts a << ' dagar'
+
+Output-mohit dagar
+
+
+
+** succ!,next! - it increment last character of string by 1
+
+a=String.new("mohia") 
+puts a.next!
+
+Output-mohib
+
+
+**replace -it replace the string value to the given value
+
+a=String.new("mohia") 
+puts a.replace('my name is mohit dagar')
+Output-my name is mohit dagar
+
+
+**reverse! -Returns self with its characters in reverse order.
+
+
+a=String.new("mohit dagar") 
+
+puts a.reverse
+
+Output-ragad tihom
+
+
+**tr! -Replaces specified characters with specified replacement characters;
+
+
+a=String.new("mohitmm") 
+
+puts a.tr('m','a')
+
+Output-aohitaa
+
+
+**tr_s! -similar but removes duplicates
+
+a=String.new("mohitmm") 
+
+puts a.tr_s('m','a')
+
+
+Output-aohita
+
+
+
+10) CASING METHODS-
+
+**capitalize-Upcases the initial character and downcases all others; returns self if any changes, nil otherwise.
+
+a=String.new("mohit") 
+
+puts a.capitalize!
+
+Output-Mohit
+
+**downcase-Downcases all characters; returns self if any changes, nil otherwise.
+
+a=String.new("MOhit") 
+
+puts a.downcase!
+
+Output-mohit
+
+
+**upcase!-Upcases all characters; returns self if any changes, nil otherwise.
+
+
+a=String.new("mohit") 
+
+puts a.upcase!
+
+
+Output-MOHIT
+
+
+**swapcase-convert up case to low case and low case to up case
+
+
+a=String.new("mohitDAGAR") 
+
+puts a.swapcase!
+
+Output-MOHITdagar
+
+
+
+------------------------------------------------------------------------------------------
+
+
+11) Ruby Methods for Deletion
+
+-> clear 
+
+It is used for clear complete string.
+
+Example :
+
+str1= 'my name is Ram'
+str1.clear
+
+puts str1
+
+
+OUTPUT :
+
+
+-> slice! or []=
+
+These are used for removes a substring determined by a given index, start/length, range, regexp, or substring.
+
+Example :
+
+b="my name is Mohit dagar"
+ b.slice!(2)
+ puts b
+ b.slice!(1..4)
+ puts b
+ b.slice!(/M.*t/)
+ puts b
+
+ b.slice!("r")
+ puts b
+
+
+
+OUTPUT :
+
+myname is Mohit dagar
+me is Mohit dagar
+me is  dagar
+me is  daga
+
+-> squeeze
+
+It is used for remove contiguous duplicate substrings except one .
+
+Example :
+
+b="my naaaame is Mohit dagar"
+puts b.squeeze!
+
+OUTPUT :
+
+my name is mohit dagar
+
+Important : we can also give arguments for remove specific duplicate elements like spaces or any other.
+
+-> delete!
+
+It is used for delete all specified substrings from string.
+
+Example :
+
+b="my naaaame is Mohit dagar"
+puts b.delete!('naaame')
+
+
+OUTPUT :
+
+y  is Mohit dgr
+
+-> lstrip 
+
+It is used for remove leading whitespaces , it means white spaces before starting of string.
+
+Example :
+
+str = '   i am from palwal'
+puts str
+str.lstrip!
+puts str
+
+
+OUTPUT :
+
+   i am from palwal
+i am from palwal
+
+-> rstrip
+
+It is used for remove trailing whitespaces , it means white spaces after completion of string.
+
+Example :
+
+str = 'i am from palwal   '
+puts str.rstrip!
+
+
+
+OUTPUT :
+
+i am from palwal
+
+-> strip 
+
+It is used for remove trailing and leading white spaces both at same time.
+
+Example :
+
+str = '    i am from palwal   '
+puts str.strip!
+
+
+OUTPUT :
+
+i am from palwal  
+
+-> chomp
+
+It will remove trailing record separator, if found.
+
+Example :
+
+str ="chennai \n\r"
+puts str
+str.chomp!
+puts str
+str.chomp!
+puts str
+
+OUTPUT :
+chennai
+
+chennai 
+chennai 
+
+-> chop
+
+It is used for remove last character of string.
+
+Example :
+
+str ="chennai"
+puts str
+str.chop!
+puts str
+
+
+OUTPUT :
+
+chennai
+chenna
+
+-------------------------------------------------------------------
+
+
+12) 
+METHODS FOR CONVERTING TO NEW STRING
+
+ Ruby methods for extensions
+
+-> *
+
+It is used for return concatenation of  many copies of given string.
+
+Example :
+
+str ="Mohit "
+puts str*3
+puts str
+
+OUTPUT :
+
+Mohit Mohit Mohit 
+Ajay 
+
+-> +
+
+It is used for concatenation of many strings.
+
+Example :
+
+str1 ="Mohan "
+str2 ="Ram "
+str3 ="Shyam"
+puts str1+str2+str3
+
+OUTPUT :
+
+Mohan Ram Shyam
+
+-> center
+
+It is used for increase the width of string and put string in center.
+
+Example :
+
+a ="Mohan"
+
+puts a.center(7) #takes 1 space before and one after
+puts a.center(25) #takes 10 before and 10 after
+puts a.center(31,'*') #takes 1 before and 13 after and filled by *
+
+
+OUTPUT :
+
+ Mohan 
+         Mohan          
+************Mohan*************
+
+-> concat
+
+It is used for concatenate first given string with another given string .
+
+Example :
+
+str1 ="Mohit "
+str2 ="Dgar "
+str1.concat(str2)
+puts str1
+
+OUTPUT :
+
+Mohit Dagar 
+
+-> prepend
+
+It is used for prepend another given string with first given string.
+
+Example :
+
+str1 ="Mohit "
+str2 ="Dagar "
+str1.prepend(str2)
+puts str1
+
+OUTPUT :
+
+Dagar Mohit 
+
+
+-> ljust
+
+If integer is greater than the length of given string, returns the new string which has length equals to integer and has white spaces after string.
+
+Example :
+
+str1 ="Mohit"
+puts str1.ljust(7)
+puts str1.ljust(20)
+puts str1.ljust(20,'a')
+
+OUTPUT :
+
+Mohit 
+Mohit                
+Mohitaaaaaaaaaaaaaaaa
+
+
+-> rjust
+
+If integer is greater than the length of given string, returns the new string which has length equals to integer and has white spaces before string content.
+
+Example :
+
+str1 ="Mohit"
+puts str1.rjust(7)
+puts str1.rjust(20)
+puts str1.rjust(20,'a')
+
+OUTPUT :
+
+ Mohit
+               Mohit
+aaaaaaaaaaaaaaaaMohit
+
+
+
+-----------------------------------------------------------------------------------------------------
+
+
+13) Ruby methods for conveting new string (Encoding)
+
+-> b
+
+It returns a copy of given string with ASCII-8BIT encoding.
+
+-> scrub
+
+If the string has invalid byte sequence then replace invalid bytes with given replacement character, else returns self.
+
+Example :
+
+"abc\u3042\x81".scrub #=> "abc\u3042\uFFFD"
+"abc\u3042\x81".scrub("*") #=> "abc\u3042*"
+"abc\u3042\xE3\x80".scrub{|bytes| '<'+bytes.unpack('H*')[0]+'>' } #=> "abc\u3042<e380>"
+
+
+-> unicode_normalize
+
+It is used for return a self string with each character unicode-normalized.
+
+-> encode
+
+It returns a copy of self string in which each character transcoded from one given encoding into another.
+
+
+**force_encoding- to change the encoding of a string to new encode
+
+a ="Mohan"
+b="ram"
+c='shyam'
+puts a.encoding
+puts 'after changinf encoding'
+ a.force_encoding('ascii')
+puts a.encoding
+
+Output-
+UTF-8
+after changinf encoding
+US-ASCII
+
+
+-------------------------------------------------------------------------------------------
+
+14) Substitution methods for converting to new string
+
+-> dump
+
+It returns  a printable version  of self, enclosed in double quotes, with special characters escaped, and with non-printing characters replaced by hexadecimal notation.
+
+Example :
+
+str1 ="Mumbai \t "
+puts str1
+puts str1.dump
+
+OUTPUT :
+
+Ajay 
+ 
+"Mumbai \t "
+
+
+-> undump
+
+It is used for undumped , previously dumped string.
+
+Example :
+
+a ="Mohan \t"
+puts a
+puts b=a.dump
+puts b.undump
+
+OUTPUT :
+
+Mohan 
+"Mohan \t"
+Mohan 
+
+-> tr(from_str,to_str)
+
+It is used for return a copy of self in which characters  in from_str replaced by characters in to_str.
+
+Example :
+
+str1 ="mohiT"
+puts str1
+puts str1.tr('a-z','*')
+puts str1.tr('ohij','*')
+puts str1.tr('^onac','*')
+
+OUTPUT :
+
+mohitT
+****T
+m***T
+*o***
+
+
+-> tr_s 
+
+It is used for return a copy of self in which characters in from_str replaced by characters in to_str. But it treats duplicates character (by condition) treats as one.
+
+Example :
+
+str1 ="mohiT"
+puts str1
+puts str1.tr_s('a-z','*') # print *T because all are in form a-z so, duplicates for that
+puts str1.tr_s('ohjk','*') # print m*iT because it considrers ohjk as one
+puts str1.tr_s('^hijkl','*') # print *hi* because treat moi as single and T as single  , they are except from hijkl
+
+OUTPUT :
+
+mohiT
+*T
+m*iT
+*hi*
+-> %
+
+It is used for return the result of formatting object into the format specification self.
+
+Example :
+
+puts a= "%07d"
+puts a%123   #it gives 0000123 means has length 7, previously space filled by 0's.
+
+OUTPUT :
+
+%07d
+0000123
+
+
+------------------------------------------------------------------------------------
+
+
+15) Convert other class element to string class
+
+-> to_s
+
+It is used for convert other class oblect(variable) to object of string class.
+
+Example :
+
+a=5
+puts a.class
+a=a.to_s
+puts a.class
+
+
+OUTPUT :
+
+Integer
+String
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+16). METHODS FOR CONVERTING TO NON-STRING
+
+-> bytes
+
+It is used for return array of bytes in self.
+
+Example :
+
+a='hello'
+puts a.bytes
+
+OUTPUT :
+104
+101
+108
+108
+111
+
+-> chars
+
+It is used for return array of chars in self.
+
+Example :
+
+a='hello'
+puts a.chars
+
+OUTPUT :
+h
+e
+l
+l
+o
+
+-> codepoints 
+
+It is used for return array of integer ordinals of characters.
+
+It is like 'bytes' method.
+
+-> getbyte
+
+It is used for return the byte at zero based index as integer.
+
+Example :
+
+a='hello23'
+puts a.getbyte(5)  # byte of 2 (at index 5) is 50
+
+OUTPUT :
+
+50
+
+
+
+------------------------------------------------------------------------------------------
+
+17)  Methods for Partition
+
+-> lines
+
+It returns the self , which is partition by given character as a line.
+
+For Example :
+
+a='hello world'
+puts a.lines('w')
+
+OUTPUT :
+
+hello w
+orld
+
+-> partition 
+
+It returns 3-element array determined by the first substring that matches a given substring or regexp.
+
+Example :
+
+a='hello world'
+print a.partition('e')
+puts ()
+print a.partition('x')
+puts ()
+print a.partition('l')
+puts()
+
+OUTPUT :
+
+["h", "e", "llo world"]
+["hello world", "", ""]
+["he", "l", "lo world"]
+
+-> rpartition
+
+It returns 3-element array determined by the last substring that matches a given substring or regexp.
+
+Example :
+
+a='hello world'
+print a.rpartition('e')
+puts ()
+print a.rpartition('x')
+puts ()
+print a.rpartition('l')
+puts()
+
+
+OUTPUT :
+
+["h", "e", "llo world"]
+["", "", "hello world"]
+["hello wor", "l", "d"]
+
+-> split 
+
+It returns a array of substrings determined by a deliminator -regexp or string- or, if block given, passes those substrings to the block.
+
+Example :
+
+a='hello world'
+print a.split('e')
+puts
+print a.split(' ')
+puts
+print a.split(//,6)
+puts
+
+OUTPUT :
+
+["h", "llo world"]
+["hello", "world"]
+["h", "e", "l", "l", "o", " world"]
+
+----------------------------------------------------------------------------------------------
+
+18)Methods for matching
+
+-> scan
+
+It returns an array of substrings matching a given regexp or string, or if a block given,passes each matching substring to the block.
+
+Example :
+
+a='hello world'
+print a.scan(//)
+puts
+print a.scan(/.../)
+puts
+print a.scan(/(...)(...)(...)/)
+puts
+
+OUTPUT :
+
+["", "", "", "", "", "", "", "", "", "", "", ""]
+["hel", "lo ", "wor"]
+[["hel", "lo ", "wor"]]
+
+--------------------------------------------------------------------------------
+
+
+19)  Numeric methods for strings
+
+-> hex
+
+It returns the integer value of the leading characters, interpreted as hexadecimals.
+
+Example :
+
+a='mohit'
+puts a.hex
+b='256'
+c='ab256'
+puts b.hex
+puts c.hex
+d='1'
+puts d.hex
+
+OUTPUT :
+
+0
+598
+701014
+1
+
+-> oct 
+
+It returns integer value of the leading characters, interpreted as octals. 
+
+
+Example :
+
+a='mohit'
+puts a.oct
+b='256'
+c='ab256'
+puts b.oct
+puts c.oct
+d='1'
+puts d.oct
+
+OUTPUT :
+
+0
+174
+0
+1
+
+-> ord
+
+It returns the integer ordinal of first character in self.
+
+Example :
+
+a='hello world'  
+puts a.ord       #print integer ordinal of h (104)
+b='256'
+c='ab256'
+puts b.ord       #print integer ordinal of 2 (50)
+puts c.ord       #print integer ordinal of a (97)
+d='1'
+puts d.ord       #print integer ordinal of 1 (49)
+e='ab1'
+puts e.ord       #print integer ordinal of a (97)
+
+OUTPUT :
+
+104
+50
+97
+49
+97
+
+-> to_i
+
+It returns the integer value of leading characters , interpreted as an integer.
+
+Example :
+
+a='hello world'  
+puts a.to_i      #print 0 because it has characters
+b='256'
+c='ab256'
+puts b.to_i      #print 256 
+puts c.to_i      #print 0
+d='1'
+puts d.to_i      #print 1
+e='25ab1'
+puts e.to_i      #print 25
+
+OUTPUT :
+0
+256
+0
+1
+25
+
+
+-> to_f
+
+It returns the float value of leading characters, interpreted as a floating number.
+
+Example :
+
+a='2.58'  
+puts a.to_f      #print 2.28
+b='2.45e-2'      
+c='ab256'
+puts b.to_f      #print 0.0245 
+puts c.to_f      #print 0.0
+d='1'
+puts d.to_f      #print 1.0
+e='25.85ab1'
+puts e.to_f      #print 25.85
+
+OUTPUT :
+
+2.58
+0.0245
+0.0
+1.0
+25.85
+
+
+
+-----------------------------------------------------------------------------
+
+20)  Methods for Strings and Symbols
+
+-> to_sym
+
+It returns the symbol corresponding to str, creating the symbol if it did not previously exist.
+
+Example :
+
+str1 = 'hello'
+puts str1==:hello
+str2 = str1.to_sym
+puts str2==:hello
+
+OUTPUT :
+
+false
+true
+
+-> inspect 
+
+It returns a printable version of self, enclosed in double-quotes, and with special characters escaped
+
+Example :
+
+my_str1 = 'hello'
+my_str2 = 'hello world'
+puts my_str1.inspect
+puts my_str2.inspect
+
+OUTPUT :
+
+"foo"
+"bar baz"
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+21. Methods for iteration in strings
+
+-> each_byte
+
+Calls the given block with successive byte in self.
+
+Example :
+
+my_str1 = 'foo'
+my_str1.each_byte{|b| print b ,' '}
+puts
+
+OUTPUT :
+
+102 111 111 
+
+-> each_char
+
+Calls the given block with successive char in self.
+
+Example :
+
+my_str1 = 'foo'
+my_str1.each_char{|b| print b ,' '}
+puts
+
+OUTPUT :
+
+f o o 
+
+-> each_codepoint 
+
+Calls the given block with successive codepoints in self.
+
+Example :
+
+my_str1 = "foo\u0259"
+my_str1.each_codepoint{|b| print b ,' '}
+puts
+
+OUTPUT :
+
+102 111 111 601 
+
+-> each_line
+
+Calls the given block with successive line in self, as determined by a given record separator.
+
+Example :
+
+example="hello world"
+example.each_line('l'){|n| p n}   # p means print
+
+OUTPUT :
+
+"hel"
+"l"
+"o worl"
+"d"
+
+-> upto
+
+
+
+
+Example :
+
+example='a9'
+example.upto('c3'){|n| print n,' '}   #print till c3
+puts
+example.upto('c3',true){|n| print n,' '} #print till c2 , stop when reached c3
+puts 
+
+OUTPUT :
+
+ a9 b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 c0 c1 c2 c3 
+ a9 b0 b1 b2 b3 b4 b5 b6 b7 b8 b9 c0 c1 c2 
+
+
+
+

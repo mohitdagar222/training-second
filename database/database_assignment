@@ -1,0 +1,285 @@
+ property_mgt=# create database airline;
+CREATE DATABASE
+
+
+property_mgt=# \c airline
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+You are now connected to database "airline" as user "postgres".
+
+
+airline=# create table Flights (flno int primary key,"from" varchar(60) not null,"to" varchar(60) not null,distance int not null,departs time not null,arrive time not null,price int not null);
+CREATE TABLE
+
+
+
+airline=# create table Aircraft (aid int primary key,aname varchar(50)not null,cruisingrange int not null);
+CREATE TABLE
+
+
+airline=# create table Employees (eid int primary key,ename varchar(60) not null,salary int not null);
+CREATE TABLE
+
+
+airline=# create table Certified(eid int references Employees(eid),aid int references Aircraft(aid));
+CREATE TABLE
+
+
+
+airline=# alter table Certified add unique(eid,aid);
+ALTER TABLE
+
+
+
+airline=# insert into Aircraft(aid,aname,cruisingrange) values(3,'airbusA300',3000);
+INSERT 0 1
+
+
+
+
+airline=# select * from Aircraft;
+ aid |       aname       | cruisingrange 
+-----+-------------------+---------------
+   1 | gladiator         |          1000
+   2 | aerol29           |          2000
+   3 | airbusA300        |          3000
+   4 | Boieng717         |          5000
+   5 | airbusA320        |          4000
+   6 | Boieng720         |          4000
+   7 | aradoA96          |          6000
+   8 | agusta            |          2000
+   9 | embraer175        |          9000
+  10 | bombardier crj200 |          3500
+(10 rows)
+
+
+
+
+
+airline=# insert into Employees (eid,ename,salary)values (111,'pawan',40000);
+INSERT 0 1
+airline=# select * from Employees;
+ eid |  ename  | salary 
+-----+---------+--------
+ 101 | amit    |  10000
+ 102 | rohit   |  15000
+ 103 | kapil   |  80000
+ 104 | sachin  | 100000
+ 105 | deepak  |  95000
+ 106 | varun   | 120000
+ 107 | vishal  |  85000
+ 108 | tinku   | 150000
+ 109 | ranjeet |  86000
+ 110 | manish  |  82000
+ 111 | pawan   |  40000
+(11 rows)
+
+
+
+
+airline=# select * from Flights;
+ flno |    from     |      to       | distance | departs  |  arrive  | price 
+------+-------------+---------------+----------+----------+----------+-------
+ 1001 | los angeles | honolulu      |     4125 | 02:05:00 | 07:05:00 |  1100
+ 1002 | los angeles | honolulu      |     4125 | 03:10:00 | 08:00:00 |  1300
+ 1004 | los angeles | chicago       |     3243 | 05:10:00 | 11:05:00 |   900
+ 1005 | los angeles | san fransisco |      650 | 01:10:00 | 02:05:00 |   400
+ 1006 | madison     | new york      |     1280 | 09:10:00 | 12:30:00 |   800
+ 1007 | madison     | new york      |     1280 | 04:10:00 | 07:10:00 |   910
+ 1008 | madison     | chicago       |      500 | 11:00:00 | 12:10:00 |   300
+ 1009 | chicago     | new york      |      750 | 04:00:00 | 05:50:00 |   250
+ 1010 | dallas      | chicago       |      850 | 10:00:00 | 12:30:00 |   200
+ 1011 | chicago     | new york      |      750 | 03:00:00 | 04:30:00 |   300
+ 1003 | los angeles | chicago       |     3200 | 06:05:00 | 12:10:00 |   800
+(11 rows)
+
+
+
+
+airline=# select * from Certified;
+ eid | aid 
+-----+-----
+ 101 |   1
+ 101 |   3
+ 101 |   5
+ 105 |   8
+ 110 |   7
+ 108 |   6
+ 104 |   6
+ 106 |   4
+ 102 |   9
+ 105 |   3
+(10 rows)
+
+
+
+              							QUERIES
+
+
+     a)	airline=# select aname from Aircraft a inner join Certified c on c.aid=a.aid inner join Employees e on e.eid=c.eid group by aname having every(e.salary>80000);
+   aname   
+-----------
+ Boieng717
+ aradoA96
+ agusta
+(3 rows)
+
+
+    b)  airline=# select eid,max(cruisingrange) from Certified c inner join Aircraft a on a.aid=c.aid group by eid having count(c.eid) >=3; 
+ eid | max  
+-----+------
+ 101 | 4000
+(1 row)
+
+
+
+   c)  airline=# select ename from Employees e where e.eid in (select eid from Certified c) and e.salary < (select min(price) from Flights where "from"='los angeles' and "to"='honolulu' );
+ ename 
+-------
+ rohit
+(1 row)
+
+
+
+
+   d) airline=# select aname,avg(e.salary) from Aircraft a inner join Certified c on a.aid=c.aid and cruisingrange > 1000 inner join Employees e on e.eid=c.eid group by aname;
+   aname    |          avg           
+------------+------------------------
+ Boieng720  |    125000.000000000000
+ Boieng717  |    120000.000000000000
+ airbusA300 | 10000.0000000000000000
+ aradoA96   |     82000.000000000000
+ embraer175 |   900.0000000000000000
+ agusta     |     95000.000000000000
+ airbusA320 | 10000.0000000000000000
+(7 rows)
+
+
+
+     e) airline=# select ename from Employees e inner join Certified c on e.eid=c.eid  inner join Aircraft a on a.aid=c.aid and a.aname like 'Boieng%';
+ ename  
+--------
+ tinku
+ sachin
+ varun
+(3 rows)
+
+
+
+
+
+   f)airline=# select a.aid from Aircraft a where a.cruisingrange >( select min(f.distance) from Flights f where "from"='los angeles' and "to"='chicago');
+ aid 
+-----
+   4
+   5
+   6
+   7
+   9
+  10
+(6 rows)
+
+
+
+
+
+     l) airline=# select ename from Employees e inner join Certified c on c.eid=e.eid inner join  Aircraft a on a.aid=c.aid  group by ename having every( a.cruisingrange > 1000);
+ ename  
+--------
+ deepak
+ varun
+ sachin
+ rohit
+ manish
+ tinku
+(6 rows)
+
+
+
+    m) airline=# select ename from Employees e inner join Certified c on c.eid=e.eid inner join  Aircraft a on a.aid=c.aid  group by ename having every( a.cruisingrange > 1000) and count(e.ename)>=2;
+ ename  
+--------
+ deepak
+(1 row)
+
+
+   k) airline=# select e.ename,e.salary from Employees e where e.eid not in (select eid from Certified ) and e.salary > (select avg(e1.salary) from Employees e1 where e1.eid in (select eid from Certified)); 
+  ename  | salary 
+---------+--------
+ kapil   |  80000
+ vishal  |  85000
+ ranjeet |  86000
+(3 rows)
+
+
+
+  n) airline=# select ename from Employees e inner join Certified c on c.eid=e.eid  inner join  Aircraft a on a.aid=c.aid where a.aname like 'Boi%'  group by ename having every( a.cruisingrange > 1000);
+ ename  
+--------
+ sachin
+ tinku
+ varun
+(3 rows)
+
+
+
+
+		
+
+
+
+
+    j) airline=# select em1.avg-em2.avg from (select avg(salary) as avg from Employees e where e.eid in (select eid from Certified) ) as em1 ,(select avg(salary) as avg from Employees) as em2;
+     ?column?      
+-------------------
+ 2527.272727272727
+(1 row)
+
+
+
+    n)airline=# select ename from Employees e inner join Certified c on c.eid=e.eid  inner join  Aircraft a on a.aid=c.aid where a.aname like 'Boi%'  group by ename having every( a.cruisingrange > 1000);
+ ename  
+--------
+ sachin
+ tinku
+ varun
+(3 rows)
+   
+
+
+      h) airline=# select ename from Employees e inner join Certified c on c.eid=e.eid  inner join  Aircraft a on a.aid=c.aid and a.aname not like 'Boi%'  group by ename having every( a.cruisingrange > 3000);
+ ename  
+--------
+ rohit
+ manish
+(2 rows)
+
+
+
+     g) airline=# select distinct  "from","to" from Flights f where f.distance <= (select min(cruisingrange) from Aircraft a inner join Certified c on a.aid=c.aid inner join Employees e on e.eid=c.eid and e.salary> 100000);
+    from     |      to       
+-------------+---------------
+ madison     | new york
+ madison     | chicago
+ los angeles | chicago
+ dallas      | chicago
+ los angeles | san fransisco
+ chicago     | new york
+(6 rows)
+
+  
+
+
+   i) airline=# select f1.departs from flights f1 left join flights f2 on f1."to" = f2."from" left join flights f3 on f2."to" = f3."from" where (f1."from" ='madison' and f2."to"= 'new york' and f2.arrive<'18:00:00') or (f1."from"='madison' and f1."to"='new york' and f1.arrive<'18:00:00') or (f1."from"='madison' and f3."to"='new york' and f3.arrive<'18:00:00');
+ departs  
+----------
+ 09:10:00
+ 04:10:00
+ 11:00:00
+ 11:00:00
+(4 rows)
+
+
+
+
+
+

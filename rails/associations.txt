@@ -1,0 +1,226 @@
+								ASSOCIATION  
+
+** In Rails, an association is a connection between two Active Record models. Why do we need associations between models? Because they make common operations simpler and easier in your code. 
+
+** Types of association
+
+ belongs_to 
+ has_one -book
+ has_many -books 
+ has_many :through
+ has_one :through
+ has_and_belongs_to_many
+
+==============================
+
+
+1. has_many : 
+
+ we use this with one to many relation. You'll often find this association 
+on the "other side" of a belongs_to association.
+
+Ex :
+
+class Property < ApplicationRecord
+  validates :accept, acceptance: true
+  belongs_to :type
+end
+
+class Type < ApplicationRecord
+  has_many :properties
+end
+
+Queries :
+
+(a)
+
+Property.first.type.name
+=> "A1 Villa"  
+
+------------------------------------------------------------------------------------------------
+
+
+2. has_many :through
+
+this is used with many to many relation by the help of third model.
+
+Example :
+
+class Appointment < ApplicationRecord
+  belongs_to :client
+  belongs_to :agent
+end
+
+
+class Client < ApplicationRecord
+  has_many :appointments
+  has_many :agents, through: :appointments
+end
+
+
+class Agent < ApplicationRecord
+  has_many :appointments
+  has_many :clients, through: :appointments
+end
+
+
+------------------------------------------------------------------------------------------------
+
+3. has_one
+
+we use this with one to one relation.
+
+It is bidirectional association.
+
+Example :
+
+class Supplier < ApplicationRecord
+  has_one :account
+end
+
+class Account < ApplicationRecord
+  belongs_to :supplier
+end
+
+
+--------------------------------------------------------------------------------------------------
+
+4. belongs_to
+
+ we use belongs to where we have foreign id of anothers primary id 
+
+Example:
+
+class Property < ApplicationRecord
+  belongs_to :agent
+end
+ 
+
+
+--------------------------------------------------------------------------------------------
+
+5. has_one :through
+
+A has_one :through association sets up a one-to-one connection with another model. 
+
+Example :
+
+class Supplier < ApplicationRecord
+  has_one :account
+  has_one :account_history, through: :account
+end
+
+class Account < ApplicationRecord
+  belongs_to :supplier
+  has_one :account_history
+end
+
+class Account_history < ApplicationRecord
+  belongs_to :account
+end
+
+
+
+----------------------------------------------------------------------------------------------
+
+6. has_and_belongs_to_many
+
+A has_and_belongs_to_many association creates a direct many-to-many connection with another model, with no intervening model.By create join table
+
+Steps :
+
+1. Define has_and_belongs_to_many in both modles
+
+class Student < ApplicationRecord
+  has_and_belongs_to_many :books
+end
+
+class Book < ApplicationRecord
+  has_and_belongs_to_many :students
+end
+
+2. Create a migration for joint table (alphabetically table name)
+
+rails g migration create_books_students_join_table
+
+class CreateBooksStudentsJoinTable < ActiveRecord::Migration[7.0]
+  def change
+    create_join_table :books, :students
+  end
+end
+
+rails db:migrate
+
+
+Queries:
+
+Enter data in join table,
+
+student = Student.first
+
+student.books << books.where(id:1001)
+ 
+----------------------------------------------------------------------------------------------
+
+7. polymorphic association
+
+A slightly more advanced twist on associations is the polymorphic association. With polymorphic associations, a model can belong to more 
+than one other model, on a single association. 
+
+Example :
+
+class Event < ApplicationRecord
+  has_many :comments, as: :commentable
+end
+
+class News < ApplicationRecord
+  has_many :comments, as: :commentable
+end
+
+class Comment < ApplicationRecord ||  should have two columns commentable_id and commentable_type and other column :title
+  belongs_to :commentable, polymorphic: true
+end
+
+Queries :
+
+event = Event.first
+
+event.comments.create(title: "first comment on event")
+ 
+
+--------------------------------------------------------------------------------------------------
+
+8. self join
+
+In designing a data model, you will sometimes find a model that should have a relation to itself. For example, you may want to store all 
+employees in a single database model, but be able to trace relationships such as between manager and subordinates. This situation can be 
+modeled with self-joining associations:
+
+Example :
+
+class CreateEmployees < ActiveRecord::Migration[7.0]
+  def change
+    create_table :employees do |t|
+      t.string :name
+      t.references :manager, foreign_key: { to_table: :employees }
+    end
+  end
+end
+
+
+class Employee < ApplicationRecord
+  has_many :subordinates, class_name: "Employee",
+                          foreign_key: "manager_id"
+
+  belongs_to :manager, class_name: "Employee", optional: true
+end
+
+** now we can check first employee's manager and and first employee has how many subordinates
+----------------------------------------------------------------------------------------------------------------
+
+
+ 
+
+ 
+
+ 

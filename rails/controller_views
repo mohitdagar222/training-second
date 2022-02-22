@@ -1,0 +1,10 @@
+							CONTROLLER AND VIEWS
+
+
+
+ *first we will generate controller 
+  rails g controller appointments index (this will generate appointments controller with index view )
+
+  root "appointments#index"  ( this will set index.html as our landing page as server loads)
+  
+ 

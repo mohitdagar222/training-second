@@ -1,0 +1,732 @@
+
+						Arrays Methods-
+
+
+** Array-Ruby arrays are ordered collections of objects. They can hold objects like integer, number, hash, string, symbol or any other array.
+
+** Creating Arrays-A new array can be created by using the literal constructor []. Arrays can contain different types of objects.
+
+arr = ['name', 4, 'mohit', 'krishan']
+print arr
+
+Output-["name", 4, "mohit", "krishan"]
+
+**An array can also be created by explicitly calling ::new with zero, one (the initial size of the Array) or two arguments (the initial size and a default object).
+
+ary = Array.new    #=> []
+Array.new(3)       #=> [nil, nil, nil]
+Array.new(3, true) #=> [true, true, true]
+
+---------------------------------------------------------------------
+**Accessing Elements -Elements in an array can be retrieved using the #[] method. It can take a single integer argument (a numeric index), a pair of arguments (start and length) or a range. 
+
+arr = [1, 2, 3, 4, 5, 6]
+print arr[2] 
+ puts  
+print arr[100] 
+ puts
+print arr[-3] 
+puts 
+print arr[2, 3]
+ puts
+print arr[1..4] 
+puts
+print arr[1..-3] 
+puts
+
+Output
+-3
+
+4
+[3, 4, 5]
+[2, 3, 4, 5]
+[2, 3, 4]
+
+
+
+**arr.at(), arr.last(), arr.first, arr.take(), arr.drop()
+
+arr = [1, 2, 3, 4, 5, 6]
+print arr.last
+puts
+print arr.first
+puts
+print arr.at(4)
+puts 
+print arr.take(3)
+puts 
+print arr.drop(1)
+puts 
+print arr
+puts
+
+Output -
+6
+1
+5
+[1, 2, 3]
+[2, 3, 4, 5, 6]
+[1, 2, 3, 4, 5, 6]
+
+-------------------------------------------------------------------------------------------------------------
+
+**obtaining information about an array-
+
+**length,count, size -
+
+states = ["Haryana", "UP", "West Bengal", "Chandigarh"]
+puts states.length
+puts states.count
+puts states.size
+
+Output-
+
+4
+4
+4
+
+**empty?, include?() -to check whether array is empty or not ,to check an element is included or not
+
+states = ["Haryana", "UP", "West Bengal", "Chandigarh"]
+puts states.empty?
+puts states.include?("West Bengal")
+
+Output-False
+True
+
+--------------------------------------------------------------------------------------
+
+**Adding items to arrays
+
+** push, <<
+
+
+states = ["Haryana", "UP", "West Bengal", "Chandigarh"]
+print states.push("Bihar")
+puts
+print states << "Assam"
+puts
+
+Output-
+["Haryana", "UP", "West Bengal", "Chandigarh", "Bihar"]
+["Haryana", "UP", "West Bengal", "Chandigarh", "Bihar", "Assam"]
+
+
+**unshift, insert()-to add elements at the begining of array
+
+states = ["Haryana", "UP", "West Bengal", "Chandigarh"]
+print states.unshift("Bihar")
+puts
+print states.insert(1,"Assam")
+puts
+
+Output-
+["Bihar", "Haryana", "UP", "West Bengal", "Chandigarh"]
+["Bihar", "Assam", "Haryana", "UP", "West Bengal", "Chandigarh"]
+
+
+---------------------------------------------------------------
+
+**Removing items from an array
+
+** shift, pop, compact, uniq, delete() --remove first element,remove last element,remove null, remove duplicates, remove specified index element-
+
+
+states = ["Haryana", "UP", "West Bengal", nil,"Chandigarh", "UP", "UP"]
+print states.pop
+puts
+print states.shift
+puts 
+print states.delete_at(1)
+puts
+print states.compact
+puts
+print states.uniq
+puts 
+print states.delete("Chandigarh")
+puts
+print states
+puts
+
+Output-UP
+Haryana
+West Bengal
+["UP", "Chandigarh", "UP"]
+["UP", nil, "Chandigarh"]
+Chandigarh
+["UP", nil, "UP"]
+
+------------------------------------------------------------------------------------------------
+**Iterating over Arrays
+
+**Each and reverse_each -which defines what elements should be iterated over and how, Another sometimes useful iterator is reverse_each which will iterate over the elements in the array in reverse order.
+
+arr = [1, 2, 3, 4, 5]
+arr.each{|a| print a -= 10, " "}
+words = ["one","two","three"]
+str=" "
+words.reverse_each{|word| str += "#{word} "}  
+puts
+puts str
+
+Output--9 -8 -7 -6 -5 
+ three two one 
+
+
+
+**map -The map method can be used to create a new array based on the original array
+
+arr = [1, 2, 3, 4, 5]
+print  arr.map{|a| a*2}
+puts
+
+
+Output-[2, 4, 6, 8, 10]
+
+**Non-destructive Selection
+
+arr = [1, 2, 3, 4, 5, 6]
+print arr.select {|a| a > 3}       #=> [4, 5, 6]
+print arr.reject {|a| a < 3}       #=> [3, 4, 5, 6]
+print arr.drop_while {|a| a < 4}   #=> [4, 5, 6]
+print arr                          #=> [1, 2, 3, 4, 5, 6]
+
+
+
+
+**destructive selection
+
+arr.delete_if {|a| a < 4}   #=> [4, 5, 6]
+printarr                         #=> [4, 5, 6]
+
+arr = [1, 2, 3, 4, 5, 6]
+arr.keep_if {|a| a < 4}   #=> [1, 2, 3]
+print arr                       #=> [1, 2, 3]
+
+
+------------------------------------------------------------------------------------------
+
+**methods for querying-
+
+
+**all? -if all elements meets the given criteria//**any? returns true if any element meets the given criteria
+
+arr = [0, 1, 2]
+arr.all? { |element| element < 3 }
+Output-true
+
+
+**index-Returns the index of a specified element.
+
+arr = [1, 2, 3, 4, 5]
+print  arr.index(2)
+puts
+
+Output=1
+
+
+**rindex -Returns the index of the last element that meets a given criterion.
+
+arr = [1, 2, 3, 4, 5,2]
+print  arr.index(2)
+puts
+
+
+Output=5
+
+**hash-Returns the integer hash code.
+
+arr = [1, 2, 3, 4, 5]
+print  arr.hash == [2, 3, 4]
+puts
+
+Output-False
+
+---------------------------------------------------------------------------------------------------
+
+**Methods for compairing
+
+** <=> -Returns -1, 0, or 1 as self is less than, equal to, or greater than a given object.
+
+[0, 1, 2] <=> [0, 1, 3] # => -1
+[0, 1, 2] <=> [0, 1, 1] # => 1
+[0, 1, 2] <=> [0, 1, 2, 3] # => -1
+
+
+**eql?
+
+a0 = [99, 'class', 2]
+a1 = [99, 'class', 2]
+a1.eql?(a0) 
+
+Output- true
+
+
+--------------------------------------------------------------------------------------------
+
+**methods for fetching-
+
+**fetch -Returns the element at offset index.
+
+arr = [1, 2, "mohit", 4, 5]
+print  arr.fetch(2)
+
+Output-mohit
+
+**first(n)-returns first n elements
+
+arr = [1, 2, "mohit", 4, 5]
+print  arr.first,"\t"
+print arr.first(3)
+puts
+Output- 1       [1, 2, "mohit"]
+
+
+**last- returns last n elements
+
+arr = [1, 2, "mohit", 4, 5]
+print  arr.last,"\t"
+print arr.last(3)
+puts
+
+Output- 5       ["mohit", 4, 5]
+
+
+**max -it returns max element in a array
+
+arr = [1, 2, 4, 5]
+print  arr.max,"\t"
+print arr.max(4)
+puts
+
+Output- 5       [5, 4, 2, 1]
+
+
+
+**minmax - it returns the ninimum and maximum in array
+
+arr = [1, 2, 4, 5]
+print  arr.minmax
+puts
+
+Output-[1, 5]
+
+
+**assoc(obj)- Returns the first element in self that is an Array whose first element == obj:
+
+arr = [[1, 2, 4],[3,4,5]]
+print  arr.assoc(3)
+puts
+
+Output- [3, 4, 5]
+
+**rassoc - Returns the first element that is an array whose second element == a given object.
+
+arr = [[1, 2, 4],[3,4,5]]
+print  arr.assoc(2)
+puts
+Output- [1, 2, 4]
+
+
+**dig -Returns the object in nested objects that is specified by a given index and additional arguments.
+
+a = [mohit, [ram, shyam, [mohan, lakhan]]]
+print a.dig(1)
+print a.dig(1, 2) 
+print a.dig(1, 2, 0) 
+print a.dig(1, 2, 3) 
+
+Output-
+[ram, shyam, [mohan, lakhan]]
+[mohan, lakhan]
+mohan
+
+
+**drop - it removes first n elements
+
+a = [0, 1, 2, 3, 4, 5]
+print a.drop(2)
+
+Output -[2, 3, 4, 5]
+
+
+**drop_while - drop elements till condition
+a = [0, 1, 2, 3, 4, 5]
+a.drop_while {|element| element < 3 }
+
+Output -  [3, 4, 5]
+
+
+**take - it shows only first n elements
+
+a = [0, 1, 2, 3, 4, 5]
+print a.take(2)
+
+Output -[0, 1]
+
+
+**take_while -it shows only first n elements till condition
+
+a = [0, 1, 2, 3, 4, 5]
+print a.take_while{|element| element < 3 }
+
+Output -[0, 1, 2]
+
+
+**sort- it sorts elements
+
+a = ['a', 'z', 'y', 'i', 't']
+print a.sort
+
+Output-["a", "i", "t", "y", "z"]
+
+
+**slice -
+
+
+
+
+
+
+
+**reverse -it reverse the array
+
+a = [1, 2, 3,4]
+print a.reverse
+puts
+
+Output -[4, 3, 2, 1]
+
+
+**reverse_each -it runs loop for each element
+
+**rotate - te places first element to last and shift each element to left
+
+a = [:foo, 'bar', 2, 'mohit']
+print a.rotate(1)
+puts
+Output -
+["bar", 2, "mohit", :foo]
+
+
+**sample -Returns random elements from self
+
+a = [3, 4, 9, 1, 3]
+print a.sample
+puts
+print a.sample(2)
+puts
+Output- 4
+[9, 3]
+
+
+**shuffle -Returns elements in a random order.
+
+a = [3, 4, 9, 1, 3]
+print a.shuffle
+puts
+
+Output -[9, 1, 3, 4, 3]
+
+
+----------------------------------------------------------------------------------------------
+
+**Methods for assigning 
+
+**[ ]= -Assigns specified elements with a given object.
+
+a = [3, 4, 9, 1, 3]
+print a
+puts
+ a[0] = "mohit"
+ print a
+
+Output -[3, 4, 9, 1, 3]
+["mohit", 4, 9, 1, 3]
+
+
+**insert -Inserts given objects before or after the element at Integer index 
+
+a = [3, 4, 9, 1, 3]
+print a
+puts
+ a.insert(1,"mohit", "dagar")
+ print a
+ puts
+
+Output-
+[3, 4, 9, 1, 3]
+[3, "mohit", "dagar", 4, 9, 1, 3]
+
+
+**concat -Appends all elements from given arrays.
+
+a = [3, 4, 9, 1, 3]
+print a
+puts
+ a.concat(["mohit", "dagar"])
+ print a
+ puts
+
+Output -[3, 4, 9, 1, 3]
+[3, 4, 9, 1, 3, "mohit", "dagar"]
+
+
+
+**fill -Replaces specified elements with specified objects.
+
+a = [3, 4, 9, 1, 3]
+print a
+puts
+ a.fill("mohit", 2)
+ print a
+ puts
+
+Output -
+[3, 4, 9, 1, 3]
+[3, 4, "mohit", "mohit", "mohit"]
+
+
+**replace -Replaces the content of self with the content of a given array.
+
+a = [3, 4, 9, 1, 3]
+print a
+puts
+a.replace([1, 2, 3, 4])
+print a
+puts
+
+Output -[3, 4, 9, 1, 3]
+[1, 2, 3, 4]
+
+
+**reverse -Replaces self with its elements reversed.
+
+a = [3, 4, 9, 1, 3]
+print a
+puts
+print a.reverse
+puts
+
+Output -[3, 4, 9, 1, 3]
+[3, 1, 9, 4, 3]
+
+----------------------------------------------------------------------------------------------------
+
+**methods for deleting -
+
+** pop -Removes and returns the last element.
+
+a = [10, 4, 9, 1, 3]
+print a.pop
+puts
+
+Outout -3
+
+**shift -Removes and returns the first element
+
+a = [10, 4, 9, 1, 3]
+print a.shift
+puts
+Output -10
+
+
+**delete_if -Removes each element in self for which the block returns a truthy value
+
+names = ["arun","amrit", "singaa","bharat"]
+print names.delete_if{|name| name.to_s.start_with?("a")}
+puts
+
+Output -["singaa", "bharat"]
+
+
+**keep_if -names = ["arun","amrit", "singaa","bharat"]
+print names.keep_if{|name| name.to_s.start_with?("a")}
+puts
+
+Output -["arun", "amrit"]
+
+
+**slice! -Removes and returns elements from self.
+
+names = ["arun","amrit", "singaa","bharat"]
+print names.slice!(1)
+puts
+print names 
+puts
+Output -amrit
+["arun", "singaa", "bharat"]
+
+-----------------------------------------------------------------------------------------------------------------
+
+** methods for combining-
+
+** & -Returns an array containing elements found both in self and a given array.
+
+names = ["arun","amrit", "singaa","bharat",1, 2, 6]
+roll = [1, 2, 8, 4, 6]
+print names & roll
+puts
+
+Output -[1, 2, 6]
+
+
+** Intersection -Returns an array containing elements found both in self and in each given array.
+
+names = ["arun","amrit", "singaa","bharat",1, 2, 6, "english"]
+roll = [1, 2, 8, 4, 6, "english"]
+sub=  ["hindi", "english"]
+print names.intersection(roll,sub)
+puts
+
+Output -["english"]
+
+
+
+
+** + =Returns a new Array containing all elements of array followed by all elements of other_array
+
+** -,difference =Returns a new Array containing only those elements from array that are not found in Array other_array
+
+** |, union =Returns an array containing all elements of self and all elements of a given array, duplicates removed.
+
+** product -Returns or yields all combinations of elements from self and given arrays.
+
+names = ["arun","amrit", "singaa","bharat",1, 2, 6, "english"]
+roll = [1, 2, 8, 4, 6, "english"]
+sub=  ["hindi", "english","maths"]
+print names + sub
+puts
+print names - sub
+puts
+print names | roll
+puts
+
+
+OUTPUT -["arun", "amrit", "singaa", "bharat", 1, 2, 6, "english", "hindi", "english", "maths"]
+["arun", "amrit", "singaa", "bharat", 1, 2, 6]
+["arun", "amrit", "singaa", "bharat", 1, 2, 6, "english", 8, 4]
+
+
+-------------------------------------------------------------------------------------------------------
+
+**Methods for iterating-
+
+**each -When a block given, passes each successive array element to the block;
+
+sub=  ["hindi", "english","maths"]
+sub.each{|element| print "#{element},  " }
+
+Output -
+hindi,  english,  maths,
+
+**cycle() -Calls a given block with each element, then does so again, for a specified number of times, or forever.
+
+sub=  ["hindi", "english","maths"]
+sub.cycle(2){|element| print "#{element}  " }
+Output -hindi  english  maths  hindi  english  maths
+
+
+**combination -Calls a given block with combinations of elements of self; a combination does not use the same element more than once.
+
+names = ["arun","amrit", "singaa","bharat",1, 2, 6, "english"]
+roll = [1, 2, 8, 4, 6, "english"]
+sub=  ["hindi", "english","maths"]
+ sub.combination(2){|n| print "#{n} "}
+puts
+
+Output -
+["hindi", "english"] ["hindi", "maths"] ["english", "maths"] 
+
+
+
+**permutation-Calls a given block with permutations of elements of self; a permutation does not use the same element more than once.
+
+names = ["arun","amrit", "singaa","bharat",1, 2, 6, "english"]
+roll = [1, 2, 8, 4, 6, "english"]
+sub=  ["hindi", "english","maths"]
+ sub.permutation(2){|n| print "#{n} "}
+puts
+
+Output -["hindi", "english"] ["hindi", "maths"] ["english", "hindi"] ["english", "maths"] ["maths", "hindi"] ["maths", "english"]
+
+---------------------------------------------------------------------------------------------------------------
+
+**methods for converting -
+
+**map -Calls the block, if given, with each element of self; returns a new Array whose elements are the return values from the block:
+
+sub=  ["hindi", "english","maths",3]
+a= sub.map{|n| n.class}
+print a
+puts
+Output -[String, String, String, Integer]
+
+
+**flatten -Returns an array that is a recursive flattening of self.
+
+a = [ 0, [ 1, [2, 3], 4 ], 5 ]
+a.flatten(0) 	# => [0, [1, [2, 3], 4], 5]
+
+a = [ 0, [ 1, [2, 3], 4 ], 5 ]
+a.flatten(1) 	# => [0, 1, [2, 3], 4, 5]
+
+a = [ 0, [ 1, [2, 3], 4 ], 5 ]
+a.flatten(2) 	# => [0, 1, 2, 3, 4, 5]
+
+a = [ 0, [ 1, [2, 3], 4 ], 5 ]
+a.flatten(3) 	# => [0, 1, 2, 3, 4, 5]
+
+
+**join -Returns a newsString containing the elements joined by the field separator.
+
+names = ["arun","amrit", "singaa","bharat",1, 2, 6, "english"]
+roll = [1, 2, 8, 4, 6, "english"]
+sub=  ["hindi", "english","maths",3]
+print sub.join
+puts
+
+Output -hindienglishmaths3
+
+
+**to_a -
+
+class MyArray < Array; end
+print a = MyArray.new(['foo', 'bar', 'two'])
+print a.instance_of?(Array) 	# => false
+print a.kind_of?(Array) 	# => true
+ a1 = a.to_a
+print a1 	# => ["foo", "bar", "two"]
+print a1.class 	# => Array # Not MyArray
+
+
+**to_h -When no block is given, self must be an Array of 2-element sub-arrays, each sub-array is formed into a key-value pair in the new Hash
+
+
+sub=  [["hindi", "english"],["maths",3]]
+print sub.to_h
+puts
+
+Output -{"hindi"=>"english", "maths"=>3}
+
+
+**transpose -
+
+sub=  [["hindi", "english"],["maths",3]]
+print sub.transpose
+puts
+
+Output -[["hindi", "maths"], ["english", 3]]
+
+**zip -Returns a new array of arrays containing self and given arrays; follow the link for details.
+
+names = ['a1', 'a2', 'a3']
+roll = ['b1', 'b2', 'b3']
+sub=  ['c1', 'c2', 'c3']
+print names.zip(roll,sub)
+puts
+
+Output -[["a1", "b1", "c1"], ["a2", "b2", "c2"], ["a3", "b3", "c3"]]
+
+
+------------------------------------------------------------------------------------------------------

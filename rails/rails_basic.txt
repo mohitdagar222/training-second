@@ -1,0 +1,298 @@
+									RAILS
+
+****Installing rails 
+
+**gem install rails
+
+**rails -v
+Rails 7.0.1
+
+
+****creating new project
+**rails new project_name -d postgresql
+
+if any bundle errors-
+sudo apt install libpq-dev 
+
+gem install pg
+than in project folder we run - bundle install
+
+**than we setup port, host, db user, db password in database.yml file
+** - rake db:create, to create our datbase
+Created database 'property_management_system'
+
+** rake db:drop
+Dropped database 'property_management_system'
+-----------------------------------------------------------------
+
+MIGRATIONS-
+
+*** to create table -
+** (rails generate model property)
+Property class created
+properties migration created
+now we will give column names and data types and run that migration
+ t.string :name, null: false, index: true || index: { unique: true} || primary_key: true if we first remove automatically generated id pkey
+  t.references :agent, foreign_key: true (table name is agents)
+ add_reference :properties, :agent, foreign_key: true
+
+*rails db:migrate
+== 20220122061218 CreateProperties: migrated (0.1371s) ========================
+
+
+
+***creating a migration to drop table column
+
+* (rails g migration drop_column_from_properties)
+create    db/migrate/20220122064533_drop_column_from_properties.rb
+*query to remove table we write inside migration
+remove_column :properties, :price, :integer
+
+*rails db:migrate
+== 20220122064533 DropColumnFromProperties: migrated (0.0061s) ================
+we run rails db:migrate to execute every migration we created
+
+
+----------------------------------------------------------
+
+**RAILS MIGRATIONS TO ALTER TABLE USING CHANGE METHOD
+
+** add column - add_column :properties, :price, :integer
+
+** remove column - remove_column :properties, :price, :integer
+
+** add index - add_index :properties, :name     ||    add_index :transactions, :property_id, unique: true
+
+** change column type - change_column :properties, :location, :string
+
+** set column not null - change_column_null :properties, :name, false
+
+** add foreign key -  add_foreign_key :property_solds, :properties, column: :property_id, primary_key: :id
+ (we can also make foreign key while generating a model like - rails g model transaction property:references)
+
+** delete foreign key - remove_foreign_key :property_solds, column: :property_id
+
+** to add timestamps - add_timestamps :properties
+
+** add_reference - add_reference(:properties, :name, polymorphic: true, index: false, type: :string)
+it creates tableName_id automatically of type bigint and if polymorphic true it also creates tableName_type with string datatype, we can also give data type.
+@@@@@@ if we have a table course and another table student and if we write |add_reference(:course, :student,foreign_key: true, index: true)| than it will create a student_id column in course table which is a foeign key of primary key in student tabele.
+
+** drop table - drop_table(:tables, if_exists: true)
+
+** create table - 
+
+create_table(:suppliers) do |t|
+  t.string :name, limit: 60
+  # Other fields here
+end
+
+** drop primary key -  execute "ALTER TABLE properties DROP CONSTRAINT properties_pkey;"
+
+** rails db:rollback - to revert to previous migration 
+
+** remove index - remove_index :property_solds, :name
+
+**remove_reference - remove_reference :properties, :name, polymorphic: true
+
+** to remove timestamps - remove_timestamps(:properties)
+
+** rename column - rename_column :properties, :name, :p_name
+
+** rename_index - rename_index :properties, 'index_properties_on_sellers', 'index_on_sellers'
+
+** rename table - rename_table('properties', 'propertiies')
+
+** change default value of column - change_column_default(table_name, column_name, default_or_changes)
+change_column_default(:posts, :state, from: nil, to: "draft")  || helps in rollback
+
+** create join table -  create_join_table (:properties, :property_solds)
+
+** create join table with indexes
+def change
+    create_join_table :properties, :properties_solds do |t|
+      t.index :property_id
+      t.index :properties_sold_id
+    end
+  end
+
+
+
+--------------------------------------
+
+**CHANGE_TABLE
+
+* add column
+**def change
+    change_table :property_solds do |t|
+      t.text :price
+    end
+  end
+
+
+* change type of column
+**def change
+    change_table :property_solds do |t|
+      t.change :price, :string
+    end
+  end
+
+* remove column
+**def change
+    change_table :property_solds do |t|
+      t.remove :price
+    end
+  end
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+CRUD OPERATIONS-
+
+
+** insert data into table -
+  *property = Property.new(name: "farmhouse",ptype: "agriculture",price: 55000, location: "hathin")
+  property.save
+ *property = Property.create(name: "farmhouse",ptype: "agriculture",price: 55000, location: "hathin") ( it saves automatically)
+ *property = Property.new
+  property.name = "flat"
+  
+
+
+** Update data in tables
+Once an Active Record object has been retrieved, its attributes can be modified and it can be saved to the database.
+Property.update_all "price = 33000, name = 'empty'"
+Property.update(:all, price: 3, name: 'true')
+property.update(location: "punjab")
+
+** Delete data from tables
+* Likewise, once retrieved an Active Record object can be destroyed which removes it from the database.
+* land = Property.find_by(name: "land")
+  property.destroy   =>(it will delete complete row)
+* property.destroy_by(name: "land")
+* property.destroy_all
+
+
+** Read data from tables (QueryInterface)
+
+1) property = Property.all => (collect all property data , we can print that)
+2) property = Property.first  => (it collect first property)
+3) property = Property.find_by(name: "land")   => (it collects everything from first property named land)
+
+4) property = Property.where(ptype: "agriculture").order(created_at: :desc)  => (it collects everything from properties where ptype = agriculture and  		in order desc)
+5)  property = Property.find(4) =>(Find the property with primary key (id) 4)
+5.1)property = Property.find([2,4]) =>( Find the property with primary keys 2 and 4.)
+
+6)  property = Property.take =>(The take method retrieves a record without any implicit ordering.)
+6.1)property = Property.take(2) => (You can pass in a numerical argument to the take method to return up to that number of results.)
+
+7)  property = Property.first =>(The first method finds the first record ordered by primary key )
+7.1)property = Property.first(5)  => (You can pass in a numerical argument to the first method to return up to that number of results)
+7.2)property = Property.order(:name).first =>(if we first order by name that it will give first acc to that)
+
+8)  property = Property.last =>(The last method finds the last record ordered by primary key)
+8.1)property = Property.order(:name).last(2) => (it will give last two records ordered by name)
+
+NOT CONDITIONS -
+
+**property = Property.where.not(name: "warehouse") => ( it collects property where name is not warehouse. NOT SQL queries can be built by where.not:)
+ 
+OR CONDITIONS -
+
+OR conditions between two relations can be built by calling or on the first relation, and passing the second one as an argument.
+**property = Property.where(name: "house").or(Property.where(ptype: "residential"))
+
+AND CONDITIONS - 
+
+** property = Property.where(name: "flat").where(location: ["delhi","palwal"])
+ can be built by calling and on the first relation, and passing the second one as an argument.
+**property = Property.where(name: ["office","human"]).and(Property.where(name: ["office","flat"]))
+
+ORDERING - 
+
+**property = Property.order(:location) => (it shows all records in ascending order by location column)
+**property = Property.order(location: :desc) => (it show all records in descending order by location column)
+**property = Property.order(name: :asc, location: :desc)
+
+
+SELECTING SPECIFIC FIELDS - 
+
+**property = Property.select(:name, :price).where(id: 5) => (it only selects name and price fields from the table)
+**property = Property.select(:ptype).distinct => (it will only give distinct selected elements)
+
+
+LIMIT AND OFFSET -
+
+**property = Property.limit(2).offset(4) => (it collects 2 properties after skipping 4 )
+
+
+GROUP BY -
+
+**property = Property.group(:ptype).count
+output = {"industrial"=>1, "residential"=>2, "agriculture"=>2, "commercial"=>2}
+
+
+HAVING -  (WE CAN ALSO WRITE COLUMN NAME IN STRINGS INSTEAD OF HASH)
+
+SQL uses the HAVING clause to specify conditions on the GROUP BY fields.
+** property = Property.select("ptype ,sum(price) as sum").group(:ptype).having("sum(price) >? ",50000)
+
+
+OVERRIDING CONDITIONS - 
+
+**UNSCOPE - 
+  You can specify certain conditions to be removed using the unscope method. For example:
+property = Property.where('id > 3').limit(3).order(location: :asc).unscope(:order) => (it will remove order condition from executing)
+
+property = Property.where(id: 4).limit(3).unscope(:where) => (unscope where condition ,coould also- where: :id)
+
+**ONLY
+You can also override conditions using the only method. For example:
+Property.where('id > 5').limit(20).order('id desc').only(:order, :where) => (it only executes order and only conditions)
+
+**RESELECT -
+ The reselect method overrides an existing select statement. For example:
+property = Property.select(:name,:ptype).reselect(:location)
+
+
+**REVERSE ORDER
+ The reverse_order method reverses the ordering clause if specified.
+property = Property.where('id>3').order(:name).reverse_order => (it reverses order name desc)
+
+
+**REWHERE -
+ The rewhere method overrides an existing, named where condition. For example:
+property = Property.where(name: "land").rewhere(name: "flat") => (it override the where condition)
+
+
+**JOINS -
+ transaction = Property.select(:name).joins("INNER JOIN transactions ON properties.id = transactions.property_id and transactions.seller_i
+d=4")
+ 
+SELECT "properties"."name" FROM "properties" INNER JOIN transactions ON properties.id = transactions.property_id and transactions.seller_id=4  
+
+** group by having
+ Appointment.select("agent_id, sum(property_id) as sum").group(:agent_id).having("sum(property_id) > ?",13)
+
+
+action mailer link (ails smtp authentication error)
+
+google.com/settings/security/lesssecureapps
+http://www.google.com/accounts/DisplayUnlockCaptcha 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+  

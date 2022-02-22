@@ -1,0 +1,430 @@
+property management system-i am creating a database with tables required to manage all the data of property management system of selling properties.
+
+Tables-
+property types table
+property names table
+property table
+sellers table
+buyers table
+property sold table
+
+postgres=# \c property_mgt
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+You are now connected to database "property_mgt" as user "postgres".
+
+
+property_mgt=# create table types(property_type_id int primary key,property_type varchar(30));
+CREATE TABLE
+
+
+
+property_mgt=# \d types
+                           Table "public.types"
+      Column      |         Type          | Collation | Nullable | Default 
+------------------+-----------------------+-----------+----------+---------
+ property_type_id | character varying(10) |           | not null | 
+ property_type    | character varying(30) |           |          | 
+Indexes:
+    "types_pkey" PRIMARY KEY, btree (property_type_id)
+
+
+
+property_mgt=# insert into types (property_type_id,property_type)values ('t1','residential'),('t2','commercial'),('t3','industrial'),('t4','agriculture');
+INSERT 0 4
+property_mgt=# select * from types;
+ property_type_id | property_type 
+------------------+---------------
+ t1               | residential
+ t2               | commercial
+ t3               | industrial
+ t4               | agriculture
+(4 rows)
+
+
+
+property_mgt=# alter table types alter column property_type_id set not null;
+ALTER TABLE
+
+
+
+
+property_mgt=# create table names(property_name_id varchar(10) primary key,property_name varchar(40)not null);
+CREATE TABLE
+
+
+
+property_mgt=# insert into names (property_name_id,property_name)values('n1','flat'),('n2','house'),('n3','mall'),('n4','office'),('n5','store'),('n6','hotel'),('n7','land'),('n8','farmhouse'),('n9','warehouse'),('n10','factory');
+INSERT 0 10
+property_mgt=# select * from names;
+
+
+
+
+property_mgt=# select * from names;
+ property_name_id | property_name 
+------------------+---------------
+ n1               | flat
+ n2               | house
+ n3               | mall
+ n4               | office
+ n5               | store
+ n6               | hotel
+ n7               | land
+ n8               | farmhouse
+ n9               | warehouse
+ n10              | factory
+(10 rows)
+
+
+property_mgt=# create table property(property_id varchar(10) primary key,property_type_id varchar(10)references types(property_type_id),property_name_id varchar(10) references names(property_name_id));
+CREATE TABLE
+
+
+property_mgt=# insert into property (property_id,property_type_id,property_name_id)values('p1','t1','n1'),('p2','t2','n6'),('p3','t3','n8'),('p4','t4','n9'),('p5','t2','n4');
+INSERT 0 5
+
+
+
+property_mgt=# select property_id,property_name,property_type from property as p inner join names on (p.property_name_id=names.property_name_id) inner join types on (p.property_type_id=types.property_type_id);
+ property_id | property_name | property_type 
+-------------+---------------+---------------
+ p1          | flat          | residential
+ p2          | hotel         | commercial
+ p5          | office        | commercial
+ p3          | farmhouse     | industrial
+ p4          | warehouse     | agriculture
+(5 rows)
+
+
+
+
+property_mgt=# create table buyers(buyer_id varchar(10) primary key,buyer_name varchar(40),buyer_mobile bigint not null unique,buyer_email varchar(50) not null unique);
+CREATE TABLE
+
+
+property_mgt=# create table sellers(seller_id varchar(10) primary key,seller_name varchar(40) not null unique,seller_mobile bigint not null unique,seller_email varchar(50) not null unique);
+CREATE TABLE
+
+
+
+property_mgt=# create table buyers(buyer_id varchar(10) primary key,buyer_name varchar(40),buyer_mobile bigint not null unique,buyer_email varchar(50) not null unique);
+CREATE TABLE
+
+
+property_mgt=# insert into buyers (buyer_id,buyer_name,buyer_mobile,buyer_email) values('b1','sumit',8956743567,'sumit@gmail.com');
+INSERT 0 1
+
+
+property_mgt=# select * from buyers;
+ buyer_id | buyer_name | buyer_mobile |    buyer_email    
+----------+------------+--------------+-------------------
+ b1       | sumit      |   8956743567 | sumit@gmail.com
+ b2       | amit       |   9845378737 | amit@gmail.com
+ b3       | rahul      |   8814674583 | rahul@gmail.com
+ b4       | rajveer    |   9994563787 | rajveer@gmail.com
+(4 rows)
+
+
+
+property_mgt=# create table sellers(seller_id varchar(10) primary key,seller_name varchar(40) not null unique,seller_mobile bigint not null unique,seller_email varchar(50) not null unique);
+CREATE TABLE
+
+
+property_mgt=# insert into sellers (seller_id,seller_name,seller_mobile,seller_email) values('s3','mohan',7027567483,'mohan@gmail.com');
+INSERT 0 1
+property_mgt=# insert into sellers (seller_id,seller_name,seller_mobile,seller_email) values('s4','sachin',4786376373,'sachin@gmail.com');
+INSERT 0 1
+
+
+
+property_mgt=# update sellers set seller_name='ajay' where seller_id='s5';
+UPDATE 1
+property_mgt=# select * from sellers
+property_mgt-# ;
+ seller_id | seller_name | seller_mobile |   seller_email   
+-----------+-------------+---------------+------------------
+ s1        | ram         |    9813456327 | ram@gmail.com
+ s2        | shyam       |   99993556327 | shyam@gmail.com
+ s3        | mohan       |    7027567483 | mohan@gmail.com
+ s4        | sachin      |    4786376373 | sachin@gmail.com
+ s5        | ajay        |    8053768593 | rahul@gmail.com
+(5 rows)
+
+
+
+property_mgt=# create table property_sold (property_id varchar(10)references property(property_id)  ,seller_id varchar(10) references sellers(seller_id)   ,buyer_id varchar(10) references buyers(buyer_id));
+CREATE TABLE
+
+alter table property_sold add constraint property_sold_fkey foreign key(property_id) references property(property_id);
+
+property_mgt=# alter table property_sold add unique(property_id);
+ALTER TABLE
+
+ select name,extract(year from age(dob)) as age from test;
+
+
+property_mgt=# select buyer_name,seller_name,property_type,property_name from property_sold inner join sellers on(property_sold.seller_id=sellers.seller_id  ) inner join buyers on(property_sold.buyer_id=buyers.buyer_id ) inner join property on (property_sold.property_id=property.property_id ) inner join types on (property.property_type_id=types.property_type_id) inner join names on property.property_name_id=names.property_name_id;
+ buyer_name | seller_name | property_type | property_name 
+------------+-------------+---------------+---------------
+ sumit      | sachin      | commercial    | hotel
+ rahul      | shyam       | commercial    | office
+(2 rows)
+
+
+
+
+property_mgt=# select p1.seller_id,count(p1.buyer_id) from property_sold as p1,property_sold as p2 where p1.seller_id=p2.seller_id and p1.buyer_id <> p2.buyer_id group by p1.seller_id;
+ seller_id | count 
+-----------+-------
+ s2        |     2
+(1 row)
+
+
+
+property_mgt=# create table employees (em_id varchar(10),em_name varchar(40),em_dob date);
+CREATE TABLE
+
+
+property_mgt=# insert into employees (em_id,em_name,em_dob) values('e1','amit','1999-12-19');
+INSERT 0 1
+
+
+
+property_mgt=# select * from employees;
+ em_id | em_name |   em_dob   
+-------+---------+------------
+ e1    | amit    | 1999-12-19
+ e2    | rohit   | 1997-11-17
+ e3    | ram     | 1992-05-02
+(3 rows)
+
+
+
+
+
+property_mgt=# select em_name,extract(year from age(em_dob))as age from employees;
+ em_name | age 
+---------+-----
+ amit    |  22
+ rohit   |  24
+ ram     |  29
+(3 rows)
+
+
+
+property_mgt=# alter table employees add primary key(em_id);
+ALTER TABLE
+
+
+property_mgt=# alter table property_sold add column em_id varchar(10) references employees(em_id);
+ALTER TABLE
+property_mgt=# select * from property_sold;
+ property_id | seller_id | buyer_id | em_id 
+-------------+-----------+----------+-------
+ p5          | s2        | b3       | 
+ p2          | s4        | b1       | 
+ p3          | s2        | b4       | 
+(3 rows)
+
+
+property_mgt=# select em_name,p.property_id,property_type,property_name,seller_name,buyer_name from property_sold as ps inner join employees as e on ps.em_id=e.em_id inner join sellers as s on ps.seller_id=s.seller_id inner join buyers as b on ps.buyer_id=b.buyer_id inner join property as p on ps.property_id=p.property_id inner join types on types.property_type_id=p.property_type_id inner join names on names.property_name_id=p.property_name_id;
+ em_name | property_id | property_type | property_name | seller_name | buyer_name 
+---------+-------------+---------------+---------------+-------------+------------
+ rohit   | p2          | commercial    | hotel         | sachin      | sumit
+ ram     | p3          | industrial    | farmhouse     | shyam       | rajveer
+ amit    | p5          | commercial    | office        | shyam       | rahul
+(3 rows)
+
+
+
+property_mgt=# alter table property_sold drop constraint property_sold_em_id_fkey;
+ALTER TABLE
+
+
+property_mgt=# alter table property_sold  add foreign key(em_id)references employees(em_id);
+ALTER TABLE
+
+
+
+property_mgt=# select property_id,seller_name from property_sold as ps right join sellers as s on ps.seller_id=s.seller_id;
+ property_id | seller_name 
+-------------+-------------
+             | ram
+ p3          | shyam
+ p5          | shyam
+             | mohan
+ p2          | sachin
+             | ajay
+(6 rows)
+
+
+
+
+property_mgt=# select property_id from property where property_id not in (select property_id from property_sold);
+ property_id 
+-------------
+ p1
+ p4
+(2 rows)
+
+
+property_mgt=# create table clients(c_id varchar(10)primary key,c_name varchar(40),c_mobile bigint,c_dob date);
+CREATE TABLE
+
+
+property_mgt=# create table property (p_id varchar(10) primary key,p_name varchar(30),p_type varchar(40),p_price bigint,p_location varchar(40));
+CREATE TABLE
+
+
+
+property_mgt=# create table employees (e_id varchar(10) primary key,e_name varchar(40));
+CREATE TABLE
+
+
+
+property_mgt=# create table property_deals(d_id varchar(10) primary key,p_id varchar(10)references property(p_id),buyer varchar(10)references clients(c_id),seller varchar(10) references clients(c_id),e_id varchar(10) references employees(e_id));
+CREATE TABLE
+
+
+
+property_mgt=# insert into property(p_id,p_name,p_type,p_price,p_location)values ('p1','flat','residential', 30000,'delhi');
+INSERT 0 1
+property_mgt=# select * from property;
+ p_id | p_name |   p_type    | p_price | p_location 
+------+--------+-------------+---------+------------
+ p1   | flat   | residential |   30000 | delhi
+(1 row)
+
+
+
+
+property_mgt=# insert into employees(e_id,e_name) values('e1','anuj');
+INSERT 0 1
+property_mgt=# select * from employees;
+ e_id | e_name 
+------+--------
+ e1   | anuj
+(1 row)
+
+
+
+
+
+property_mgt=# select c_name from clients where c_id in(select buyer from property_deals where buyer in (select seller from property_deals))
+;
+  c_name  
+----------
+ devender
+ krishan
+(2 rows)
+
+
+
+property_mgt=# select c_name,extract (year from age(c_dob))as age from clients where c_dob=(select min(c_dob) from clients) group by c_dob,c_name;
+ c_name  | age 
+---------+-----
+ kuldeep |  31
+(1 row)
+
+
+
+property_mgt=# select p_name from property where p_price=(select max(p_price) from property);
+  p_name   
+-----------
+ farmhouse
+(1 row)
+
+
+property_mgt=# select  * from clients;
+ c_id |  c_name  |  c_mobile  |   c_dob    
+------+----------+------------+------------
+ c1   | devender |  893456345 | 1992-09-19
+ c2   | tinku    |  983456345 | 1994-03-12
+ c3   | kapil    | 9838734598 | 1998-02-14
+ c4   | krishan  | 8053456327 | 1991-01-26
+ c5   | kuldeep  | 8567463457 | 1990-08-21
+(5 rows)
+
+
+
+
+
+
+
+property_mgt=# select * from property;
+ p_id |  p_name   |   p_type    | p_price | p_location 
+------+-----------+-------------+---------+------------
+ p1   | flat      | residential |   30000 | delhi
+ p2   | hotel     | commercial  |   40000 | gurugram
+ p3   | land      | agriculture |   20000 | palwal
+ p4   | warehouse | industrial  |   50000 | sohna
+ p5   | house     | residential |   10000 | hodal
+ p6   | farmhouse | agriculture |   60000 | hathin
+ p7   | office    | commercial  |   35000 | faridabad
+(7 rows)
+
+
+
+
+
+property_mgt=# select * from property_deals;
+ d_id | p_id | buyer | seller | e_id 
+------+------+-------+--------+------
+ d1   | p2   | c2    | c4     | e1
+ d2   | p1   | c1    | c3     | e2
+ d3   | p4   | c4    | c1     | e3
+(3 rows)
+
+
+
+
+property_mgt=# alter table property_deals add check(buyer <> seller);
+ALTER TABLE
+
+property_mgt=# insert into property_deals(d_id,p_id,buyer,seller,e_id) values('d4','p3','c1','c1','e1');
+ERROR:  new row for relation "property_deals" violates check constraint "property_deals_check"
+DETAIL:  Failing row contains (d4, p3, c1, c1, e1).
+
+
+
+
+property_mgt=# select c_name from clients where c_id in (select buyer from property_deals where p_id in (select p_id from property where property.p_id=property_deals.p_id and property.p_type='commercial'));
+ c_name 
+--------
+ tinku
+(1 row)
+
+
+
+
+property_mgt=# select c_name from clients where c_id in (select buyer from property_deals inner join property on property_deals.p_id=property.p_id and property.p_type='commercial');
+ c_name 
+--------
+ tinku
+(1 row)
+
+
+
+property_mgt=# select c_name from clients where c_name like '_a%';
+ c_name 
+--------
+ kapil
+(1 row)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

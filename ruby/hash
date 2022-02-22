@@ -1,0 +1,481 @@
+								HASH CLASS IN RUBY
+
+
+
+**A Hash maps each of its unique keys to a specific value. A Hash has certain similarities to an Array, but:
+
+    An Array index is always an Integer.
+
+    A Hash key can be (almost) any object.
+
+**hash data syntax -
+
+The older syntax for Hash data uses the “hash rocket,” =>:
+
+
+has = {:a => 1, :b=> 2} 
+print has
+puts
+
+Output -{:a=>1, :b=>2}
+
+
+**Alternatively, but only for a Hash key that's a Symbol, you can use a newer JSON-style syntax, But it's an error to try the JSON-style syntax for a key that's not a bareword(a,b ..) or a String('a',..):
+
+has = {a: 1, 'b': 2} 
+print has
+puts
+
+Output -{:a=>1, :b=>2}
+
+-------------------------------------------
+
+**common uses -
+You can use a Hash to give names to objects:
+
+ > persons= {name: 'mohi', location: 'pune', age: 20}
+ => {:name=>"mohi", :location=>"pune", :age=>20} 
+
+
+**You can use a Hash to give names to method arguments:
+
+def some_method(hash)
+  print hash
+  puts
+end
+some_method({mohit: 89, krishan: 90, ajay: 91})
+
+Output -{:mohit=>89, :krishan=>90, :ajay=>91}
+
+
+**creating a hash -
+
+> h = Hash.new
+ => {} 
+3.0.0 :036 > h.class
+ => Hash 
+
+You can create a Hash by calling method Hash.[].
+
+ > h = Hash[]
+ => {} 
+
+Create a Hash with initial entries:
+
+ > h = Hash[name: "mohit", location: "gurugram"]
+ => {:name=>"mohit", :location=>"gurugram"} 
+
+
+You can create a Hash by using its literal form (curly braces).
+
+> h = {name: "mohit",location: "faridabad", job: "traineee" }
+ => {:name=>"mohit", :location=>"faridabad", :job=>"traineee"}
+
+----------------------------------------------------------
+**Methods for Setting Hash State -
+
+**compare_by_identity - two keys are considered the same only if they are the same object; returns self
+
+By default, these two object are considered to be the same key, so s1 will overwrite s0:
+
+s0 = 'x'
+s1 = 'x'
+h = {}
+h.compare_by_identity? # => false
+h[s0] = 0
+h[s1] = 1
+print h
+puts
+
+Output -{"x"=>1}
+
+After calling #compare_by_identity, the keys are considered to be different, and therefore do not overwrite each other:
+
+s0 = 'x'
+s1 = 'x'
+h = {}
+h.compare_by_identity
+h.compare_by_identity? # => false
+h[s0] = 0
+h[s1] = 1
+print h
+puts
+
+Output -{"x"=>0, "x"=>1}
+
+
+**default = value -Sets the default value to value; returns value:
+
+ > h = {}.default = true
+ => true 
+
+------------------------------------------------------
+
+**Methods For Querying -
+
+**any? -Returns whether any element satisfies a given criterion.
+
+> h = {name: "mohit", location: "palwal"}
+ => {:name=>"mohit", :location=>"palwal"} 
+
+ > h.any?([:name, "mohit"])
+ => true
+
+
+**empty? Returns whether there are no entries.
+
+> h.empty?
+ => false
+
+
+**eql? - Returns whether a given object is equal to self.
+
+> h.eql?({name: "mohit", location: "haridwar"})
+ => true 
+
+
+**hash -Returns the integer hash code.
+
+ > h.hash ==({name: "mohit", location: "haridw"}).hash
+ => false 
+
+
+**include?,member?, key?, has_key? -Returns whether a given object is a key in self.
+
+ > h.include?(:nam)
+ => false 
+
+
+**length, size -Returns the count of entries.
+
+ > h.length
+ => 2 
+
+**value? -Returns whether a given object is a value in self.
+
+ > h.value?("mohit")
+ => true 
+
+
+----------------------------------------------------------------------------------
+
+**Methods for comparing- 
+
+** < - Returns whether self is a proper subset of a given object.
+> h
+ => {:name=>"mohit", :location=>"haridwar"} 
+
+
+> h < ({name: "mohit", location: "haridwar",language: "ruby"})
+ => true 
+
+
+** <= -Returns whether self is a subset of a given object.
+
+> h <= ({name: "mohit", location: "haridwar"})
+ => true 
+
+
+** == -Returns whether a given object is equal to self.
+
+ > h == ({name: "mohit", location: "haridwar",language: "ruby"})
+ => false 
+
+
+** > -Returns whether self is a proper superset of a given object
+
+ > {name: "mohit", location: "haridwar",language: "ruby"} > h
+ => true 
+3.0.0 :087 > {name: "mohit", location: "haridwar"} > h
+ => false 
+
+
+** >= Returns whether self is a proper superset of a given object
+
+ > {name: "mohit", location: "haridwar"} > h
+ => true
+
+-------------------------------------------------------------------------------------
+
+**Methods for fetching
+
+**[] - Returns the value associated with a given key.
+
+> h[:name]
+ => "mohit"
+
+
+**assoc(key) -If the given key is found, returns a 2-element Array containing that key and its value:
+
+> h.assoc(:location)
+ => [:location, "haridwar"] 
+
+
+**dig -Returns the object in nested objects that is specified by a given key and additional arguments.
+
+h = {foo: {bar: {baz: 2}}}
+h.dig(:foo) 		# => {:bar=>{:baz=>2}}
+h.dig(:foo, :bar) 	# => {:baz=>2}
+h.dig(:foo, :bar, :baz) # => 2
+h.dig(:foo, :bar, :BAZ) # => nil
+
+
+
+**fetch(key) -Returns the value for the given key, if found.
+
+> h.fetch(:location)
+ => "haridwar" 
+
+
+**fetch_values(keys) -Returns array containing the values associated with given keys.
+
+ > h.fetch_values(:location,:name)
+ => ["haridwar", "mohit"] 
+
+
+
+**key,keys -Returns the key for the first-found entry with a given value.
+
+
+ > h.key("mohit")
+ => :name 
+
+ > h.keys
+ => [:name, :location] 
+
+
+**rassoc(value) -Returns a new 2-element Array consisting of the key and value of the first-found entry whose value is == to value
+
+> h.rassoc("haridwar")
+ => [:location, "haridwar"] 
+
+
+**values, values_at -Returns an array containing all values in self/ Returns an array containing values for given keys.
+
+> h.values
+ => ["mohit", "haridwar"] 
+
+ h.values_at(:name,:Location,:location)
+ => ["mohit", nil, "haridwar"] 
+
+-----------------------------------------------------------------------------
+
+
+** Methods for assigning
+
+**[]= Associates a given key with a given value.
+
+ h[:class]="middle"
+ => "middle" 
+3.0.0 :106 > h
+ => {:name=>"mohit", :location=>"haridwar", :class=>"middle"} 
+
+h.store(:bar, 3) 
+
+
+**replace -Replaces the entire contents of self with the contents of a givan hash.
+
+3.0.0 :106 > h
+ => {:name=>"mohit", :location=>"haridwar", :class=>"middle"} 
+
+3.0.0 :107 > h.replace({area: 23,circum: 34})
+ => {:area=>23, :circum=>34} 
+
+3.0.0 :108 > h
+ => {:area=>23, :circum=>34} 
+
+3.0.0 :109 > h.replace({name: "mohit",location: "gurugram",class: "middle"})
+ => {:name=>"mohit", :location=>"gurugram", :class=>"middle"} 
+
+3.0.0 :110 > h
+ => {:name=>"mohit", :location=>"gurugram", :class=>"middle"} 
+
+
+-----------------------------------------------------------------------------------
+
+**Methods for deleting-
+
+**clear -Removes all entries from self.
+
+ v ={name: "anand"}
+ => {:name=>"anand"} 
+3.0.0 :115 > v.clear
+ => {} 
+
+
+**compact! -Removes all nil-valued entries from self.
+
+
+> h[:a]=nil
+ => nil 
+
+3.0.0 :112 > h
+ => {:name=>"mohit", :location=>"gurugram", :class=>"middle", :a=>nil} 
+
+3.0.0 :113 > h.compact!
+ => {:name=>"mohit", :location=>"gurugram", :class=>"middle"} 
+
+
+
+**delete, delete_if -Removes the entry for a given key./Removes entries selected by a given block.
+
+ > h.delete(:a)
+ => 1 
+
+> h = {a: 1, b: 2, c: 3}
+ => {:a=>1, :b=>2, :c=>3} 
+
+3.0.0 :120 > h.delete_if{|key ,value| value > 2}
+ => {:a=>1, :b=>2} 
+
+
+
+**select!,filter!- Keep only those entries selected by a given block.
+
+ > h
+ => {:a=>1, :b=>2, :c=>3} 
+3.0.0 :136 > h.select!{|key,value| value<3}
+ => {:a=>1, :b=>2} 
+
+
+
+**keep_if -
+
+ > h
+ => {:a=>1, :b=>2} 
+3.0.0 :138 > h.keep_if{|key,value| value<2}
+ => {:a=>1} 
+
+
+
+**shift -Removes and returns the first entry.
+
+ > h
+ => {:a=>1, :b=>2, :c=>3} 
+
+3.0.0 :143 > h.shift
+ => [:a, 1] 
+
+3.0.0 :144 > h
+ => {:b=>2, :c=>3} 
+
+
+--------------------------------------------------------------------------------
+
+**These methods return a copy of self with some entries removed:/do not remove permanently
+
+**compact -it removes nil
+
+h[:d]=nil
+ => nil 
+3.0.0 :146 > h.compact
+ => {:b=>2, :c=>3} 
+
+
+
+**except -Returns a copy of self with entries removed for specified keys.
+
+h.except(:d)
+ => {:b=>2, :c=>3} 
+3.0.0 :153 > h
+ => {:b=>2, :c=>3, :d=>nil} 
+
+
+**slice -Returns a new Hash object containing the entries for the given keys:
+
+> h.slice(:b,:c)
+ => {:b=>2, :c=>3} 
+
+---------------------------------------------------------------------------------
+
+**Methods for iterating-
+
+**each, each_pair -Calls a given block with each key-value pair.
+
+> h.each_pair{|key, value| "#{key}  #{value}"}
+ => {:b=>2, :c=>3, :d=>nil, :a=>1} 
+
+
+
+**each_key -Calls a given block with each key.
+
+> h.each_key{|key| puts key}
+b
+c
+d
+a
+
+
+
+**each_value -Calls a given block with each value.
+
+h.each_value{|key| puts key}
+2
+3
+nil
+1
+
+
+------------------------------------------------------------------------
+
+**Methods for converting-
+
+**to_s,inspect -Returns a new String containing the hash entries.
+
+ > h.inspect
+ => "{:b=>2, :c=>3, :a=>1}" 
+
+3.0.0 :176 > h.to_s
+ => "{:b=>2, :c=>3, :a=>1}" 
+
+
+
+**to_a -Returns a new array of 2-element arrays; each nested array contains a key-value pair from self
+
+ h.to_a
+ => [[:b, 2], [:c, 3], [:a, 1]] 
+
+
+**to_h -Returns self if a Hash; if a subclass of Hash, returns a Hash containing the entries from self.
+
+ h.to_h {|key, value| [value, key] }
+ => {0=>:foo, 1=>:bar, 2=>:baz}
+
+
+-------------------------------------------------------------------
+
+**Methods for transforming keys and values
+
+**transform keys, transform keys! -Returns a copy of self with modified keys/Modifies keys in self
+
+
+ h.transform_keys{|key| key.to_s}
+ => {"foo"=>0, "bar"=>1, "baz"=>2} 
+
+3.0.0 :181 > h
+ => {:foo=>0, :bar=>1, :baz=>2} 
+
+3.0.0 :182 > h.transform_keys!{|key| key.to_s}
+ => {"foo"=>0, "bar"=>1, "baz"=>2}
+ 
+3.0.0 :183 > h
+ => {"foo"=>0, "bar"=>1, "baz"=>2}  
+
+
+
+
+**transform values,transform values! -Returns a copy of self with modified values.
+
+
+ > h.transform_values{|value| value*4}
+ => {"foo"=>0, "bar"=>4, "baz"=>8} 
+
+ h.transform_values!{|value| value*4}
+ => {"foo"=>0, "bar"=>4, "baz"=>8} 
+
+3.0.0 :186 > h
+ => {"foo"=>0, "bar"=>4, "baz"=>8} 
+
+
+-----------------------------------------------------------------------
+
