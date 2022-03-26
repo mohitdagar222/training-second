@@ -1,0 +1,128 @@
+install git
+install database
+install rvm
+install ruby
+install nvm
+git@github.com:yafetd/Loovit-Final.git
+chmod 400 ~/.ssh/id_rsa (git access denied)
+ssh-add ~/.ssh/id_rsa (not have correct access rights)
+chmod 600 ~/.ssh/*
+
+
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+sudo apt-get update
+sudo apt-get install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn
+
+sudo apt install postgresql-11 libpq-dev
+
+** project setup steps =>
+git clone
+setup database.yml, .env file
+bundle install 
+rake db:create
+yarn install (if error switch node version, remove node modules, yarn install, install redis server, webpacker and run)
+rails db:migrate
+rails db:seed
+
+
+
+git fetch && git checkout branch-name (when checkout first time to a branch)
+
+gem 'awesome_print', require: 'ap'
+
+**webpacker
+must use in rails application(manifest error)
+bundle exec rails webpacker:install
+rails webpacker:install
+yarn add @rails/webpacker
+bin/rails webpacker:install
+webpacker server => bin/webpack-dev-server
+
+
+** Partials <%= render "form", post: @post %>
+	    <%= render :partial => 'form', locals: { post: @post } %>
+
+git fetch && git checkout feature/client-hirings ( to switch branch )
+
+**
+sudo apt install redis-server
+sudo systemctl status redis-server
+bundle exec sidekiq
+
+**(to create project with specific rails version)
+gem install rails -v '5.2.3' -V --no-document
+gem list rails --local
+rails _5.2.3_ new ajax-demo2 -d postgresql
+
+
+
+----------------------------
+(freelancer.freelancer_stat.present?) ? freelancer.freelancer_stat.avg_rating.round(2) : 0.0
+ 
+ 
+          <img class="img-fluid d-block br-10" src="https://d3uc5tyvwod5j.cloudfront.net/development/uploads/assets/categories/11/original-category/11/image/b3af58e971265b881b95c2340b6a1554.png">
+          
+          
+           <input type="text" placeholder="Search">
+          <button type="submit" class="submit">
+          <img src="/assets/new_ui/icon_home_search.png">
+ </button>
+          
+          
+           <% if design.image.present?  %>
+              <%= image_tag design.image.url, class: 'img-fluid d-block br-10' %>
+            <% else %>
+              <%= image_tag 'homepage/shopping-1.png', class: 'img-fluid d-block w-100 h-280 br-10' %>
+            <% end %>
+            
+            
+            
+            
+            
+            ===============
+            
+ 
+                
+                
+ def content 
+    if params[:name].present?
+      @designs = []
+      freelancers = User.where("first_name ilike ?", "#{params[:name]}%")
+      workdesigns = WorkDesign.where("name ilike ?", "#{params[:name]}%")
+      if freelancers.present?
+        freelancers.each do |freelancer|
+          if freelancer.work_designs.present?
+            freelancer.work_designs.each do |d| 
+              @designs << d 
+            end
+          end
+        end
+      elsif workdesigns.present?
+        workdesigns.each do |workdesign|
+          @designs << workdesign
+        end
+      end
+    end
+  end
+  
+  content.js
+  $("#content").html("<%=j render partial: "design" %>")
+$("#search-form").bind("ajax:complete", function(event,xhr,status){
+   $('#name').val('');
+ })
+
+
+
+   <a class='blue-btn mt-2 px-3 py-2 d-inline-block radius5' data-toggle="modal" data-target="#LoginModal">Hire me</a>
+              <%= link_to('Login Now', '#', class:'blue-btn blue-btn px-4 py-1 radius5' 'blue-btn mt-2 px-3 py-2 d-inline-block radius5', data: { toggle: 'modal', target: '#LoginModal', dismiss: 'modal' }) %>
+ 
+ 
+ 
+ "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDgzNjA1NTd9.g6Brg7CUx8bM6SF9URYkAxlgu36ogHT1njPjk0MPjak"
+              
+              
+

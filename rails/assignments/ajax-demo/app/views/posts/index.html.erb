@@ -1,0 +1,23 @@
+
+<p id="notice"><%= notice %></p>
+
+<%= form_with(url: "/posts/search", method: :get, local: false) do |form| %>
+  <%= form.label(:name, "Search Product with name:", class: :label) %>
+  <%= form.text_field(:name, id: :search_field) %><br><br >
+  <%= form.submit("Search", :class => "btn btn-success") %>
+<% end %>
+
+<h1>Posts</h1>
+<div id = "PostsList" >
+  <%= render 'posts', posts: @posts %>
+</div>
+
+<div id="newUser">
+<%= link_to 'New Post', new_post_path , remote: true%>
+</div>
+
+<div id="editUser">
+</div>
+
+<div id="showUser">
+</div>

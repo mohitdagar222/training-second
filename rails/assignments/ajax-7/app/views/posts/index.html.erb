@@ -1,0 +1,25 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<%= form_with(url: "/posts/search", method: :post) do |form| %>
+  <%= form.label(:name, "Search Product with name:") %>
+  <%= form.text_field(:name) %><br><br/>
+  <%= form.submit("Search") %>
+<% end %>
+
+
+<div id="searched_posts">
+</div>
+
+<div id="new_post">
+  <%= render partial: "posts/form", locals: { post: Post.new } %>
+</div>
+
+<div id="posts">
+  <% @posts.each do |post| %>
+    <%= render post %>
+  <% end %>
+</div>
+
+

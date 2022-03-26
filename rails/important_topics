@@ -258,5 +258,27 @@ app/assets/javascripts/application.js
 
 
 
+===========================================================================================================
 
+sidekiq -
+
+1) gem 'sidekiq' (add this to gemfile) | install redis server before this - sudo apt install redis-server
+2) bundle install
+3) RegistrationWorker.perform_async(@user.id) => ( call this on users controller create action) 
+   RegistrationWorker.perform_in(2.minutes, @user.id)
+   RegistrationWorker.perform_at(2.minutes.from_now, @user.id)
+4) /app/workers/registration_worker.rb
+
+class RegistrationWorker
+    include Sidekiq::Worker
+    def perform(id)
+        @user = User.find_by(id: id)
+        UserMailer.welcome_email(@user).deliver
+    end
+ end
+
+5) bundle exec sidekiq
+
+
+========================================================================================================================
 

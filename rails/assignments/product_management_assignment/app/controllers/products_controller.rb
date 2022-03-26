@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   def index
     flash[:message2] = "No products found"
     if (params[:name] == nil and params[:price] == nil) or (params[:price] == "0" and params[:name] == "")
-      @products = Product.where(user_id: session[:user_id]).paginate(:page => params[:page])
+      @products = Product.where(user_id: session[:user_id]).paginate(page: params[:page])
     elsif params[:name] != "" and params[:price] == "0"
       @products = Product.where(user_id: session[:user_id]).where("name ilike ?", "#{params[:name]}%").paginate(:page => params[:page])
     elsif params[:price] != "0" and params[:name] == ""

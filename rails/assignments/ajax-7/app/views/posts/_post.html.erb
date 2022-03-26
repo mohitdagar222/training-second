@@ -1,0 +1,12 @@
+<div id="<%= dom_id post %>">
+  <p>
+    <strong>Title:</strong>
+    <%= post.title %>
+  </p>
+    <%= button_to "Destroy this post", "/posts/#{post.id}", method: :delete %>
+    <%= button_to "Edit this post", "/posts/#{post.id}/edit", method: :post %>
+    <%= button_to "Show this post", "/posts/#{post.id}", method: :post %>
+    <%#button_to "Destroy this post", @post, method: :delete %>
+
+
+</div>
