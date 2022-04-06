@@ -1,0 +1,170 @@
+install git
+install database
+install rvm
+install ruby
+install nvm
+git@github.com:yafetd/Loovit-Final.git
+chmod 400 ~/.ssh/id_rsa (git access denied)
+ssh-add ~/.ssh/id_rsa (not have correct access rights)
+chmod 600 ~/.ssh/*
+
+
+sudo apt install curl
+curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+sudo apt-get update
+sudo apt-get install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn
+
+sudo apt install postgresql-11 libpq-dev
+
+** project setup steps =>
+git clone
+setup database.yml, .env file
+bundle install 
+rake db:create
+yarn install (if error switch node version, remove node modules, yarn install, install redis server, webpacker and run)
+rails db:migrate
+rails db:seed
+
+
+
+git fetch && git checkout branch-name (when checkout first time to a branch)
+
+gem 'awesome_print', require: 'ap'
+
+**webpacker
+must use in rails application(manifest error)
+bundle exec rails webpacker:install
+rails webpacker:install
+yarn add @rails/webpacker
+bin/rails webpacker:install
+webpacker server => bin/webpack-dev-server
+
+
+** Partials <%= render "form", post: @post %>
+	    <%= render :partial => 'form', locals: { post: @post } %>
+
+git fetch && git checkout feature/client-hirings ( to switch branch )
+
+**
+sudo apt install redis-server
+sudo systemctl status redis-server
+bundle exec sidekiq
+
+**(to create project with specific rails version)
+gem install rails -v '5.2.3' -V --no-document
+gem list rails --local
+rails _5.2.3_ new ajax-demo2 -d postgresql
+
+
+
+----------------------------
+
+AUTHENTICATION SOCIAL LOGIN
+
+first create app on particular platform in developer section
+get client id and secrets
+install gem
+add omniauth.rb file in initializers
+set env variables
+create login link
+add routes for callback
+create user
+
+cryptic-shelf-69940
+<%= link_to 'add to cart', "/cart/#{p.id}" %>
+<%=  link_to 'continue to shopping', "/empty",
+<%= link_to 'back to cart', '/carts/index'
+
+                        <%= link_to "/cart/destroy/#{cp.id}" do %>
+                        <span class="close"> &#10005;</span>
+                        <% end %>
+
+--------------------------------------------------------------------------
+
+
+
+(freelancer.freelancer_stat.present?) ? freelancer.freelancer_stat.avg_rating.round(2) : 0.0
+ 
+ 
+          <img class="img-fluid d-block br-10" src="https://d3uc5tyvwod5j.cloudfront.net/development/uploads/assets/categories/11/original-category/11/image/b3af58e971265b881b95c2340b6a1554.png">
+          
+          
+           <input type="text" placeholder="Search">
+          <button type="submit" class="submit">
+          <img src="/assets/new_ui/icon_home_search.png">
+ </button>
+          
+          
+           <% if design.image.present?  %>
+              <%= image_tag design.image.url, class: 'img-fluid d-block br-10' %>
+            <% else %>
+              <%= image_tag 'homepage/shopping-1.png', class: 'img-fluid d-block w-100 h-280 br-10' %>
+            <% end %>
+            
+            
+            
+            
+            
+            ===============
+            
+ 
+                
+                
+ def content 
+    if params[:name].present?
+      @designs = []
+      freelancers = User.where("first_name ilike ?", "#{params[:name]}%")
+      workdesigns = WorkDesign.where("name ilike ?", "#{params[:name]}%")
+      if freelancers.present?
+        freelancers.each do |freelancer|
+          if freelancer.work_designs.present?
+            freelancer.work_designs.each do |d| 
+              @designs << d 
+            end
+          end
+        end
+      elsif workdesigns.present?
+        workdesigns.each do |workdesign|
+          @designs << workdesign
+        end
+      end
+    end
+  end
+  
+  content.js
+  $("#content").html("<%=j render partial: "design" %>")
+$("#search-form").bind("ajax:complete", function(event,xhr,status){
+   $('#name').val('');
+ })
+
+
+
+   <a class='blue-btn mt-2 px-3 py-2 d-inline-block radius5' data-toggle="modal" data-target="#LoginModal">Hire me</a>
+              <%= link_to('Login Now', '#', class:'blue-btn blue-btn px-4 py-1 radius5' 'blue-btn mt-2 px-3 py-2 d-inline-block radius5', data: { toggle: 'modal', target: '#LoginModal', dismiss: 'modal' }) %>
+ 
+ 
+ 
+ "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDgzNjA1NTd9.g6Brg7CUx8bM6SF9URYkAxlgu36ogHT1njPjk0MPjak"
+       
+       
+    google client id-   907088366645-c639t9r480211br6tmqhp7r56u2cd9bt.apps.googleusercontent.com
+  google secret-        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 
+       
+  github client id-     fb2adae7f7eabf45af2b      
+  github secret-      ac561e0dd2a3ed2caa33960892359b0c79b9f6b8  
+  
+ Twitter API key - 1nYS1ic21owo96vdtpYsh0V8c
+  API key secret - giynhebMDyKW2zrZ7wJtexs0cs2LPLQgCKURmi2CrzOzK2vOvS
+  BEARER token - AAAAAAAAAAAAAAAAAAAAAA3bawEAAAAABfTGshMxeWxPIj7ydEwQ6vFpsQ8%3D64Qg3LkgcnjyzBQINpHfV46rfKc1cf7pQXFpf7ExXSqlOmw9uM  
+  
+  client_id - WGNKMEZsVWQ0cDZKSGdRT2d3eV86MTpjaQ
+  client secret - 6DL4MCl76BJ9VmqZ2-qdD6w09yGa_60t0w1MytjcGAPwEnuVgt
+  
+  GET /labs/1/tweet
+  curl -X GET -H "Authorization: Bearer <BEARER TOKEN>" "https://api.twitter.com/2/tweets/20"   
+  https://api.twitter.com/2/users/1509451199979810820/tweets
+  RestClient.get 'http://example.com/resource', {:Authorization => 'Bearer cT0febFoD5lxAlNAXHo6g'}  
+
