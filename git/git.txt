@@ -65,7 +65,7 @@ To rename a Git branch, run the following command: git branch -m <old> <new>. Th
 git merge (branch name) (to merge a branch ,first move to that branch and run the command and enter the name of branch to be merged) 
 
 delete branch locally
-git branch -d localBranchName
+git branch -d/D localBranchName
 
  delete branch remotely
 git push origin --delete remoteBranchName

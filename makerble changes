@@ -1,0 +1,110 @@
+
+
+TYPES OF JS REQUESTS
+
+can send ajax request and receive response and set html to that response
+can send js request and render json with any partial directly
+normaly send js request and use .erb file
+
+
+
+  $('#project_id').change(function(){
+    $.ajax({
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: "/maps/project_changes",
+      data : JSON.stringify({id: $(this).val()}),
+      dataType: "json",
+      success: function (result) {
+        $('#tracker-dropdown').html(result.html)
+          console.log(result.html)
+         
+      },
+      error: function (){
+          window.alert("something wrong!");
+      }
+    }); 
+    $('#tracker-dropdown').removeAttr("style");  
+  })
+
+
+
+
+
+
+
+$("#highlight_wards").html("<%=j render partial: "highlight_wards",locals:{ project: @project } %>")
+  gemfile
+  
+   gem "rack-timeout"
+   
+  story.rb 
+  
+  after_create :send_notification
+  
+  development.rb
+  
+    config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+    
+    
+    <%= form_for @item do |f| %>
+
+    <%= f.grouped_collection_select(:category_id, Category.order(:name), 
+                          :items, :name, :id, :title, 
+                          include_blank: "Please Choose...") %>
+<% end %>
+
+
+   $.ajax({
+      type: "POST",
+      contentType: "application/json; charset=utf-8",
+      url: "/maps/metrics",
+      data : JSON.stringify({id: $(this).val()}),
+      dataType: "json",
+      success: function (result) {
+          //do somthing here
+          window.alert("success!!");
+      },
+      error: function (){
+          window.alert("something wrong!");
+      }
+    });
+    
+    
+    
+      var myLink = $('#myLinkId'); 
+  $('#showAreaBox').change(function() {
+    if( this.checked ) {
+        myLink.trigger('click');
+    }
+    else {}
+  });
+%input#showAreaBox{:type => "checkbox"}/
+%button.btn.btn-primary{"data-target" => "#exampleModalCenter", "data-toggle" => "modal", :type => "button"}
+  Metric
+  
+  
+  %label{:for => "tracker_id"} 3. Choose a progress Tracker
+            %br/
+            - grouped_options = [['Participation Tracker',@project_changes.present? ? @project_changes.collect {|p| [ p.name, p.id ] } : ""], ['Activity Tracker', ["San Francisco", "Mountain View"]]]
+            = f.select :tracker_id, grouped_options_for_select(grouped_options), prompt: 'Choose a progress Tracker'
+  
+  
+Try this:
+
+<%= grouped_options = [['Europe',["London, UK", "Stockholm, Sweden"]], ['USA', ["San Francisco, USA", "Mountain View"]]] %>
+
+
+<%= f.select :location, grouped_options_for_select(grouped_options) %>
+User.last.charities.first.projects.second.template.changes.where(st
+age_id: 2).pluck(:name)
+
+
+
+    
+    
+    ===================================================
+    
+
+  
+  

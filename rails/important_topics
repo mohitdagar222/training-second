@@ -214,7 +214,7 @@ app/assets/javascripts/application.js
      <p class="alert"><%= alert %></p>
 
 6) to generate model => rails g devise user
-7) now run migration and Restart server=> rails db:migrate
+7) now run migration and Restart server=> rails db:migrate  (we can uncomment from user model anf from migration)
 8) we can use functionalities by uncommenting lines in config/initializers/devise
 9) setup **LETTER OPENER 
 10) now add signout and sign in functionality in header
