@@ -1,0 +1,38 @@
+$(document).click(function() {
+          var button = $("#filter-btn-overlay");
+          var container = $(".filter-metrics-container"); 
+          if (!container.is(event.target) && !container.has(event.target).length && !button.is(event.target) && !button.has(event.target).length && container.css('display') == 'block' && !$(".select2-results__option--selectable").is(event.target) && !$(".select2-results__option--selectable").has(event.target).length){
+            container.hide();
+            console.log("hide")
+          }
+        });]
+        
+        
+        
+        
+        
+        
+        
+        var aggregation = result.aggregation
+                if (aggregation === "Shape_Countries"){ 
+                    aggregation = "Countries"
+                }
+                
+          ** pass to updatemap from Metrics filter
+          
+          select2 select2-container select2-container--default select2-container--above"
+          
+          var mouse_is_inside = false;
+
+$(document).ready(function()
+{
+    $('.form_content').hover(function(){ 
+        mouse_is_inside=true; 
+    }, function(){ 
+        mouse_is_inside=false; 
+    });
+
+    $("body").mouseup(function(){ 
+        if(! mouse_is_inside) $('.form_wrapper').hide();
+    });
+});
