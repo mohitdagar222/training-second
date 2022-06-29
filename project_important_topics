@@ -162,6 +162,32 @@ User.last.charities.map(&:projects)
             
             ===============
             
+            
+            
+ var array = [];
+    $("#form-custom-color-fields .field-set .custom[type='number'], select.custom option:selected").each(function (){
+      if(!$(this).prop("disabled") && this.value !== undefined && this.value != "" && !$(this).parent("select").prop("disabled")){
+        array.push(this.value);
+      }
+      filter_data["parent-fieldset"] = array;
+    });
+
+            
+         $(this).find(":input").each(function (){   
+            ================================================
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
  
            <% if @minimum_password_length %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -205,6 +231,5 @@ $("#search-form").bind("ajax:complete", function(event,xhr,status){
 
    <a class='blue-btn mt-2 px-3 py-2 d-inline-block radius5' data-toggle="modal" data-target="#LoginModal">Hire me</a>
               <%= link_to('Login Now', '#', class:'blue-btn blue-btn px-4 py-1 radius5' 'blue-btn mt-2 px-3 py-2 d-inline-block radius5', data: { toggle: 'modal', target: '#LoginModal', dismiss: 'modal' }) %>
- 
  
  
