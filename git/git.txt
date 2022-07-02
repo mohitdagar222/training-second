@@ -1,5 +1,6 @@
 Installing git on Linux
 
+
 $ sudo apt install git-all
 
 to set username and email
