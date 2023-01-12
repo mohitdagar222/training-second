@@ -28,6 +28,10 @@ yarn install (if error switch node version, remove node modules, yarn install, i
 rails db:migrate
 rails db:seed
 
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d make_dev 26_8_2021_staging_latest.dump
+psql -U postgres -h localhost itsacheckmate_development < sqlfile.sql
+
+
 
 
 git fetch && git checkout branch-name (when checkout first time to a branch)
