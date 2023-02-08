@@ -29,6 +29,8 @@ rails db:migrate
 rails db:seed
 
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d make_dev 26_8_2021_staging_latest.dump
+pg_dump -F c -v -U postgres -h localhost referralhero_stag -f /tmp/staging_db.psql
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d referralhero_staging_dump /var/www/maitre/current/staging_db.psql
 psql -U postgres -h localhost itsacheckmate_development < sqlfile.sql
 
 
