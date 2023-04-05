@@ -1,0 +1,314 @@
+database.yml
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: legit_development
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
+  
+production:
+  url: <%= ENV['DATABASE_URL'] %>
+#
+# production:
+#   <<: *default
+#   database: legit_production
+#   username: legit
+#   password: <%= ENV['LEGIT_DATABASE_PASSWORD'] %>
+
+
+
+-------------------------------------------------------------------
+ACTIVE STORAGE
+
+Rails.application.routes.url_helpers.rails_blob_url(parser.icon) = to fetch url of active storage media
+ActiveStorage::Blob.service.path_for(@media.audio.key) = to fetch path to actual file stored in local disk
+@post.image.service.send(:object_for, @post.image.key).public_url  || @post.image&.service_url&.split("?")&.first
+
+filename.sanitized
+filename.extension_with_delimiter
+
+path = "/path/to/xyz.mp4"
+
+File.basename(path)         # => "xyz.mp4"
+File.extname(path)          # => ".mp4"
+File.basename(path, ".mp4") # => "xyz"
+File.basename(path, ".*")   # => "xyz"
+File.dirname(path)          # => "/path/to"
+
+
+-------------------------------activating tabs, links etc..
+
+if html request than can add ternary condition to add active classes else normal ones
+if js request on different actions,add common class to all ele, than can remove classes from all elements and add active class to current one, (if want to replace first add old classes to elem with new classes than remove all new classes from all elem than add active ones to current elem and remove default ones)
+can also add click listener to all elem with common class to remove and add classes
+best way in replace case is to update class attribute, first update all with default and than current with active ones
+
+
+
+
+------------------------innerhtml as div
+
+jQuery('<div>', {class: 'loader'})).append("<div>Audio transcription is in progress!</div>"
+
+ActiveSupport::Duration.build(note.included_time.round(2)).inspect
+ActionView::Base.full_sanitizer.sanitize(@string) --------- to remove html tags from string and check if string is blank
+
+
+
+
+
+-------------------------------- to submit rails form as js  -----------  to submit a form via ajax with file field
+
+form = document.querySelector('#media-form');
+form.dispatchEvent(new Event('submit', {bubbles: true}));
+
+
+const formData = new FormData($('#profile-post-form')[0])
+      if (formData.length !== 0){
+        $.ajax({
+          url: "/posts/autosave",
+          type: "patch",
+          data: formData,
+          processData: false,
+          dataType: "json",
+          contentType: false,
+          success: function(data) {
+            $("#post_id").val(data.id)
+          },
+          error: function (){
+          }
+        });
+      }
+
+
+------------------------------------------------------------------------
+d / prev *100
+
+run app in production-
+
+RAILS_ENV=production rake db:create db:migrate db:seed
+rake secret
+export SECRET_KEY_BASE=output-of-rake-secret
+config.assets.compile = true production.rb
+RAILS_ENV=production bundle exec rake assets:precompile
+RAILS_ENV=production rails s || RAILS_ENV=production RAILS_SERVE_STATIC_FILES=true bundle exec rails server
+
+changes made to run in production-
+comment in production.rb - config.force_ssl = true
+Dotenv::Railtie.load  - application.rb
+setup database
+gem 'dotenv-rails' -gemfile
+
+
+rails s
+/bin/webpack-dev-server
+sudo systemctl start elasticsearch
+sudo systemctl enable elasticsearch
+
+
+
+---------------------------------------
+
+
+
+-------------------------------------------
+
+
+
+
+has_and_belongs_to_many :subscribers, :class_name => "User", :join_table => "newsletters_subscribers", :association_foreign_key => "subscriber_id"
+-----------------------
+
+
+docker rm -vf $(docker ps -aq)
+docker rmi -f $(docker images -aq)
+docker system prune --volumes  (unable to resolve hosts db)
+https://itnext.io/docker-rails-puma-nginx-postgres-999cd8866b18
+docker ps
+docker images
+docker image rm id --force
+docker exec -it id /bin/bash
+docker-compose up -d --build
+
+
+
+turn on systemctl server postgres 
+nginx
+and db file                                                                               
+
+config/database.yml    
+
+                                                                                          
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+
+
+development:
+  <<: *default
+  database: web_scraper_development
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
+
+production:
+  <<: *default
+  database: web_scraper_production
+  username: postgres
+  password: root
+  host: localhost
+  port: 5432
+  pool: 10
+  timeout: 5000
+  
+  
+  
+  
+  ------------------------------------------------------------
+  
+  
+  def create_subscription
+    profile = Profile.find(params[:profile_id])
+    params[:subscribed_via] ||= "Legitimate"
+    params[:newsletter_id] ||= profile.user.newsletters.default&.id
+    if params[:email] && params[:email].blank?
+      flash[:error] = "Email Can't be Blank!"
+      redirect_to request.referrer and return
+    elsif params[:email].present?
+      subscription = EmailSubscription.find_or_create_by(profile_id: params[:profile_id], email: params[:email])
+      subscription.update(newsletter_id: params[:newsletter_id], subscribed_via: params[:subscribed_via], subscribed: true)
+    elsif current_user
+      subscription = current_user.email_subscriptions.find_or_create_by(profile_id: params[:profile_id])
+      subscription.update(newsletter_id: params[:newsletter_id], subscribed_via: params[:subscribed_via], subscribed: true)
+    end 
+    flash[:notice] = "You have subscribed for #{profile.full_name} Updates!"
+    redirect_to profile_path(profile)
+  end
+
+
+<%= radio_button_tag "newsletter_id", newsletter.id, false, class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" %>
+
+
+
+-------------------
+
+URL: https://cloud.elastic.co/home
+vinay@legitimate.io, Changeit@2299
+try for only fodoro server
+
+
+
+
+-----------------------------------------
+
+@mohit
+ You can connect staging DB with your local app doing following steps
+Install cloud sql proxy on your system
+curl -o cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.darwin.amd64
+chmod +x cloud_sql_proxy
+run cmd on console - it will continously run
+./cloud_sql_proxy -instances=legit-dev-341610:europe-west2:development=tcp:5400
+Have below config in your database.yml environment
+development:
+  adapter: postgresql
+  username: postgres
+  password: Legit-gcp-db
+  database: development
+  host: 127.0.0.1
+  port: 5400
+  
+  
+  
+  -------------------
+  docker ps
+docker exec -ti c8bc5125b31a bash
+RAILS_ENV=staging bundle exec rails c
+
+gcloud projects list
+gcloud config set project legitimate-production
+
+  
+  
+  
+  production ----
+	  ./cloud_sql_proxy -instances=legitimate-production:europe-west2:production=tcp:5400
+development:
+  adapter: postgresql
+  username: postgres
+  password: Legit-gcp-db
+  database: prodlegit
+  host: 127.0.0.1
+  port: 5400
+  
+  
+  --------------------------------------
+  
+  ./cloud_sql_proxy -instances=fodoro-production:us-central1:production=tcp:5400
+  
+  fodoro----
+  
+  default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  adapter: postgresql
+  username: postgres
+  password: $OS^oV/IzN>M'NGN
+  database: postgres
+  host: 127.0.0.1
+  port: 5400
+  
+  
+  
+  ----------------------------------------
+
+
+.group(:tag).count
+abc = Hash[a.sort_by{|k, v| v}.reverse].keys.first(20)
+
+gmail cred
+
+vinay@legitimate.io
+changeit2299
+
+github creds 
+vinay@legitimate.io
+Legit@vinay2299
+
+
+---------------------------------------------------
+
+
+active storage 
+google api client
+google clod speech
+
+dc9712f209e8d06350192794a5890d90
+
+514b3ea7fbd9470faf2484b5292aa85e  - api key
+
+-----------------------------------------
+
+twitter developer account
+
+client = Twitter::REST::Client.new do |config|
+		  config.consumer_key        = "4sGtcRdrqF0eOcfRgSaquSEMS"
+		  config.consumer_secret     = "AFz4bJCIA5G5DJ2AzrMB6gyE76wStWSPRzqsJWwnxquq6uJFTT"
+		  config.access_token        = "1509396036447457281-VNVrKqZoYF4nmXfpgcPhGAkvmIFRpj"
+		  config.access_token_secret = "9OodvQF7o7ABrfdEFR5Ejd3NpjN9PZQf5fNtfrWN7fVlo"
+		end
+
+rails server setup and deployment with capistrano
+ssh username@ip_address

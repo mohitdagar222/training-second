@@ -1,0 +1,828 @@
+558 - tasks
+552 - transcription (create subscription plans via model and create bonus events through rake tasks)
+563 - notes
+LG-502 - newsletter hub
+LG-New-Connect-UI - new messsages UI
+LG-359-new - analytics
+LG-New-transcript-UI - latest transcription
+LG-583 - onboarding process
+LG-591 is for new message and contacts UI
+LG-601 is for ticket and thoughts transcriptions link
+new-connect-transcription-onboarding-ui - latest onboarding process
+Now added transcription new UI to Journalist tool repo
+Now added messages to Journalist tool repo
+LG-609 - messages ajax update
+LG-599 - for hubspot integration 
+LG-612 - PEXELS API
+LG-629 - remove articles bonus
+LG-625 - fontawesome
+LG-630 - article engagement
+ LG-460-stripe - old stripe id
+ LG-674 - new stripe  code and settigs page
+
+tools rep seventh in downloads style.css id similar to analytics.css in transcript branch, now updated for messages inbox
+
+message contacts and note and speech - speech.css
+tasks - tasks.css
+tasks and analytics and speech and messages - journalist tool repo
+thoughts folder - notes
+speech to text - speech and messages and contacts
+ 
+ 
+ onStart: function (event) {
+          event.item.closest("div").classList.add('tilt');
+  }
+        
+
+filter: ".edit-section",
+preventOnFilter: false,
+
+
+sortable js opacity on drag event
+
+
+
+
+<% if Time.now > card.due_date - 24.hours && Time.now < card.due_date %>
+
+
+
+* facing issue in adding "postcss-hexrgba"
+* animation.css file giving syntax error
+* css added to transform in style.css overriding confirm modal transform properties
+* what should be displayed in place of red pulse if due date is past date
+
+
+
+font family issue
+
+***merge tasks.css and analytics.css
+
+
+make headings tags and attachments dynamic on messages
+contact section not visible in messages show page, swap css files
+
+
+---------------------------------------
+
+
+
+display spinner on range change anlytics - PENDING
+ajax request is going unlimited times - add condition in else block of action if show and transcription is empty - PENDING 																																																																			
+
+
+FOR REDDIT ACCESS TOKEN
+url = "https://www.reddit.com/api/v1/access_token"
+RestClient::Request.execute(method: :post, url: url, user: '_0WFfSOcM_o5LKZmjOS4ZQ', password: 'pFiqVI07Ii8i48RPXBa0XTgG9lxgYg', payload: {grant_type: "client_credentials"})
+
+FOR REDDIT SEARCH
+url = "https://oauth.reddit.com/subreddits/search"
+RestClient.get(url, {:Authorization => "Bearer #{access_token}"})
+
+==============================================================
+
+
+
+"https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=ENV.fetch('FB_CLIENT_ID')&client_secret=ENV.fetch('FB_CLIENT_SECRET'&fb_exchange_token=#{user_access_token}"
+
+
+we can also fetch page_access_token if client provides us user_access_token(from Graph Explorer tool) that is valid for 1 hour, than we can first fetch long-lived user_access_token and than page_access_token and store it to use in our API requests
+
+---------------------------
+css to comment from css files
+.transform{
+	transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+background-color: transparent;
+
+------------------------------------
+
+
+
+https://console.cloud.google.com/logs/query;cursorTimestamp=2022-12-01T10:07:02Z;query=logName%3D%22projects%2Flegit-dev-341610%2Flogs%2Fappengine.googleapis.com%252Fnginx.error%22%0Atimestamp%3D%222022-12-01T10:07:02Z%22%0AinsertId%3D%222dzkh49uszvfbt24w%22;resultsSearch=media;timeRange=PT5M?project=legit-dev-341610
+
+client_max_body_size 10M;
+<%= params[:controller] == "connect_app/tasks/board_sections" ? "overflow-hidden" : "" %>
+ onClose: modal => alert(`${modal.id}`),
+
+md:h-[calc(100vh-68px)]
+sm:ml-[70px]
+w-[70px]
+
+
+
+client intended to send too large body: 51965702 bytes, client: 2404:6800:4002:823::2014, server
+greater than maximum allowed size of [33554432] in Google cloud platform
+customize nginx configuration through app.yml
+
+
+https://sdmoviespoint.autos/     ---------- MOVIES WEBSITE
+
+
+
+
+
+
+        original_posts = response.select{|res| res.as_json["retweeted_status"] == nil}
+        retweets_count = original_posts.map{|post| post.as_json["retweet_count"]}.sum
+        
+        retweets_count = @result_data.flatten.first["public_metrics"]["retweet_count"] unless @result_data.blank?
+        
+from search results, the one not having retweeted_status, add retweets count
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+https://www.figma.com/proto/nQuvhkiyU2vcTFmJluHiP3/Legitimate?node-id=2711%3A262&scaling=min-zoom&page-id=2696%3A27&starting-point-node-id=2711%3A176
+
+
+
+
+CHANGE IN EXISTING FILES FOR ONBOARDING - 
+
+commented line check_verify_redirect in application controller
+changed root path to onboardings path in verify controller
+
+
+
+
+ 
+  def have_enough_total_minutes
+    (fetch_stripe_minutes_percentage > 25 || fetch_monthly_minutes_percentage > 25)
+  end
+ 
+
+nokogiri access schema.org tags ruby
+Scraping data from websites using schema.org  "ruby"
+ 
+at
+css
+search
+script[tyoe='']
+
+
+url = "https://hebbarskitchen.com/hi/rasgulla-recipe-bengali-rosogulla/"
+page = page = Nokogiri::HTML(open(url))
+hash = Hash.from_xml(page.at("script[type='application/ld+json']").to_s)
+JSON.parse(hash["script"])["@graph"][0]["author"]["name"]
+
+
+
+files modified
+styles/style.css - MERGED similar as analytics
+dist/style.css - MERGED
+typography - MERGED
+tailwind.config.js - MERGED
+
+
+@import "/components/microtip.css"; SIMILAR
+
+@import "/components/trix.css";
+
+remove trix js and css cdns from application
+  
+
+
+ 
+  
+  
+
+FB API
+
+
+
+
+
+
+params with file -> audio, duration
+params with url -> file_url, name, extension, duration
+
+
+
+
+
+    # @messages = []
+    # @all_messages.each do |message|
+    #   if message.parent.present?
+    #     @messages << message.parent if !current_user.trash_messages.pluck(:message_id).include?( message.parent.id)# && !current_user.archive_messages.pluck(:message_id).include?(message.parent.id)
+    #   else
+    #     @messages << message if !current_user.trash_messages.pluck(:message_id).include?( message.id) && !current_user.archive_messages.pluck(:message_id).include?(message.id)
+    #   end
+    #   @messages = @messages.uniq.sort_by{|message| message.created_at}.reverse
+    # end
+
+Date.today.strftime('%b %d')
+      if(data.results_present){
+                        $('#transcript-search-results').html(data.transcript_partial);
+                    } else{
+                        $('#transcript-search-results').html('');
+                    }
+                    
+            update_linked_tickets_profile_connect_notes 
+            search_tickets_profile_connect_notes
+            display_ticket_modal_profile_connect_notes        
+
+
+
+new-files --
+
+settings.html
+toggle-panel.js D
+mobile-menu D
+notifications-panel-empty
+notifications-panel
+profile-menu D
+notifications-empty.svg D
+
+modified files --
+
+analytics.htnl D
+inbox empty D
+inbox message D
+inbox D
+index (bord section) D
+transcriptions claimed D
+transcriptions empty D
+transcriptions single search highlight D
+transcriptions new D
+transcriptions single D
+transcriptions(index) D
+style.css
+
+  add menu button and main content id to main area wherever we want to add toggle
+  
+sm:translate-x-0 transition-all 
+id="main-content-section"
+
+<button class="sm:hidden appearance-none mr-3">
+                  <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.1875 12.8125H16.8516C17.3594 12.8125 17.75 13.2422 17.75 13.75C17.75 14.2969 17.3594 14.6875 16.8516 14.6875H1.1875C0.679688 14.6875 0.25 14.2969 0.25 13.7891C0.25 13.2422 0.679688 12.8125 1.1875 12.8125ZM1.1875 0.3125H16.8516C17.3594 0.3125 17.75 0.742188 17.75 1.25C17.75 1.71875 17.3594 2.1875 16.8516 2.1875H1.1875C0.679688 2.1875 0.25 1.79688 0.25 1.28906C0.25 0.820312 0.679688 0.3125 1.1875 0.3125ZM1.1875 6.5625H16.8516C17.3594 6.5625 17.75 6.99219 17.75 7.5C17.75 8.04688 17.3594 8.4375 16.8516 8.4375H1.1875C0.679688 8.4375 0.25 8.04688 0.25 7.5C0.25 6.99219 0.679688 6.5625 1.1875 6.5625Z" fill="#0F172A"/>
+                  </svg>
+                  <span class="sr-only">Menu</span>
+              </button>
+              
+               id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu"
+  
+
+    5. message list click redirect - PENDING
+  
+
+TODAY WORK *************************************************
+
+most_liked_article = SocialShare.group(:article_id).select("article_id, SUM(likes_count) AS total_likes").order("total_likes DESC").limit(1).first - for single field from multiple records
+                                
+                       
+most_liked_facebook_article = SocialShare.where(provider: "Facebook").group(:article_id).select("article_id, SUM(likes_count) AS total_likes").order("total_likes DESC").limit(1).first - for single field from multiple records for specific provider
+
+
+
+                                
+  Article.joins(:social_shares).where(social_shares: { provider: nil }).order("social_shares.likes_count DESC").select("articles.*, social_shares.likes_count AS total_likes").first - for single field with specific provider
+  Article.joins(:social_shares).where(social_shares: { provider: nil }, articles: {profile_id: profile_id}).group("articles.id").order("SUM(social_shares.likes_count) DESC") - alternative of above
+  
+  SocialShare.where(provider: 'facebook').group(:article_id).select("article_id, SUM(likes + comments + share_count) AS total_count").order("total_count DESC").limit(1).first - for multiple fields sum
+
+Article.joins(:social_shares).where(social_shares: { article: { profile_id: profile_id } }).group(:id).select("articles.id, SUM(social_shares.likes_count + social_shares.comments_count + social_shares.shares_count + social_shares.retweets_count) AS total_count").order("total_count DESC").limit(1)
+
+
+where(social_shares: { provider: nil })
+social_shares.where("provider is not null")sum(&:comments_count)
+@article.update_social_total_metrics
+
+  def update_social_total_metrics
+    ss = social_shares.find_or_create_by(provider: nil)
+    ss.update(likes_count: total_likes_count, comments_count: total_comments_count, shares_count: total_shares_count)
+  end
+
+
+
+
+1. Fix error with separate worker sidekiq and deploy -> could not connect to server: No such file or directory Is the server running locally and accepting connections on Unix domain socket "/cloudsql/legit-dev-341610:europe
+2. Create react application to search movies and click on any to open new page with more details
+3. Integrate UI for Analytics Board Badges 
+
+
+http://dreadytofatroptsdj6io7l3xptbet6onoyno2yv7jicoxknyazubrad.onion
+supertuxkart
+ Worked to increase application performance with AppSignal integration by loading all pages and queries
+ 
+cloud build
+worker.yaml
+staging.yaml
+sidekiq.rb
+
+  def feed_action
+    (current_user.slug.present? ? my_feed_path(id: current_user.slug) : authenticated_root_path)
+  end
+
+  def feed_tags_action(tag)
+    (current_user.slug.present? ? my_tags_feed_path(id: current_user.slug, tag: tag.slug) : authenticated_root_path(tag: tag.slug))
+  end
+
+
+{
+  author(id: 3){
+    name
+    postsCount
+    posts{
+      title
+      body
+      author{
+        name
+      }
+    }
+  }
+}
+{
+  authors{
+    name
+  }
+}
+
+
+First option - apply on online platforms like linkedin, indeed, naukri.com etc
+Second alternate - ask friends and relatives for reference or try visiting offline in companies for interview
+Third alternate - Ask any of village foreigners and settle to foreign
+
+
+Works to done during that time period -
+	- Try for freelancing projects 
+	- Work on own product, try to ceate something for passive income through internet, hands on stock market
+	- Prepare for interviews
+	
+
+
+gcloud components update
+gcloud components update app-engine
+
+queue_based_scaling:
+    target_concurrent_jobs: 50
+    
+
+rails dev:cache
+
+
+
+<% cache(['logged_in_header', current_user], expires_in: 7.days) do %>
+<% cache('logged_out_header', expires_in: 7.days) do %>
+ <% cache('footer', expires_in: 7.days) do %>
+
+
+
+legit-dev-341610
+FROM gcr.io/google-appengine/ruby
+RUN apt-get update && apt-get install -y ffmpeg
+gcloud run deploy --image gcr.io/project_id/tag
+gcloud builds submit --tag gcr.io/legit-dev-341610/legit-dev
+To build a custom runtime for GCP with Ruby and the FFmpeg library, you can follow the steps below:
+
+
+
+
+
+
+thread count 5
+
+add appworker.yaml where cloud build      in 640
+change execution line for app staging like bundle eec puma in place of foreman
+
+
+
+create docker file and use custom runtime
+
+
+
+
+
+
+Write the Dockerfile: Create a Dockerfile that defines the environment and application code for your container.
+
+Build the Docker image: Use the Dockerfile to build a Docker image. You can use the docker build command to build the image on your local machine, or you can use the Cloud Build service to build the image in the cloud.
+
+Push the Docker image to a container registry: Once the Docker image is built, push it to a container registry that is accessible to GCP, such as GCR or Docker Hub.
+
+Deploy the Docker container on GCP: Use a container orchestration service like Google Kubernetes Engine (GKE) or Google Cloud Run to deploy and manage the container on GCP.
+
+
+
+
+update in DB new plan id on update and default plan id on downgrade
+update plan id to subscription latest plan id and if subscription deleted then update plan id to default plan  id
+
+messenger like gmail
+stripe
+trello board
+speech to text transcription
+twitter search tool with location keyword and hashtags
+scrapping news websites and their analytics on various platforms like fb twitter reddit pinterest
+
+
+
+
+
+
+protect_from_forgery unless: -> { request.format.json? }
+  skip_after_action :verify_same_origin_request
+
+
+inbox scope - pending
+
+    Steps
+    1. First need to commit migration to add columns with suffix ciphertext and add code Lockbox.migrate(ModelName) to migrate data
+    2. Remove migrating true from model and add ignore fields code for using encrypted fields
+    3. Remove ignore fields code and add migration to remove previous fields
+    
+
+
+
+  scope :inbox, ->(user_id){ left_joins(:trash_messages).left_joins(:archived_messages).where("(trash_messages.user_id is null or trash_messages.user_id != ?) and (archived_messages.user_id is null or archived_messages.user_id != ?)", user_id, user_id) }
+left_joins(:trash_messages).where("trash_messages.user_id != ? or trash_messages.user_id is NULL", 17)
+
+
+
+  def total_messages_count_for(type = "")
+    if type.blank?
+      messages = connect_messages
+    else
+      messages = connect_messages.send(type)
+    end
+    parents = messages.where("parent_id is null").pluck(:id)
+    child_parents =  messages.where("parent_id is not null").map(&:parent).pluck(:id)
+    ids = (parents + child_parents).uniq
+    count = ConnectMessage.where(id: ids).inbox(user.id).uniq.count
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+https://b47e-2401-4900-1c67-2df2-f499-c073-4c28-dde7-in-ngrok-io.relay.evervault.com/profiles/mohit-dagar-beryl/posts
+
+	
+git commit -m "create task for existing profiles to create connect and fix add profiles issue" app/views/layouts/_logged_in.html.erb app/controllers/profiles_controller.rb
+
+
+"$2a$11$Ap/fY/2BxKI2EjjKqf2DNuSmmtxr5oKHD8E0ukOekmH46VUsFUqje" - India@123
+
+
+
+ 	
+ regular - unsplash, large - large -> for preview
+ 
+
+
+ps aux | grep 3000
+
+check with real time slack, how it works
+when I am already on bottom, and new messages comes then it gets me to the bottom of message.
+When I am in mid of scroll of messages list box, then it doesn't scroll to bottom of box on new message comes
+when I am at bottom already, new messages come, unread stays for a sec and then it marks as read
+when I am not at bottom, new messages come, unread stays until I scroll to bottom. and as soon as I scroll to bottom of box, app marks the messages as read.
+when I am at bottom, but I am on another tab of browser or on something else, new message will stayed as unread until I come on app browser
+
+
+
+
+
+
+social share notifications -> Your article is blowing up - (for articles with total reach greater than 500) - PENDING
+Show percentage of upload of transcription file as it uploads - DONE
+integrate pexels API - PENDIN -> tabs.js, tabs.css, index.html unsplash modal changes
+one case left -> if timer is about to execute and you just clicked save button so both will execute
+
+if person is not at bottom of chat, than just append messages, and on scroll to bottom mark message as read
+if person is at bottom, append messages scroll to bottom and mark message as read
+append in both cases, mark as read on scroll in both cases
+
+
+
+FB_CLIENT_ID=521056316695951
+FB_CLIENT_SECRET=850adf5b392993acd3774d4e2f379e31
+
+==================mark messages as read on scroll
+
+document.getElementById('message-threads-scroll').addEventListener('scroll', event => {
+    const {scrollHeight, scrollTop, clientHeight} = event.target;
+    if (Math.abs(scrollHeight - clientHeight - scrollTop) < 1) {
+        alert("at bottom")
+    }
+});
+
+=======================file upload
+let response = await fetch(
+					url,
+					{
+					method: "PUT",
+					headers: {
+							"Content-Length": contentLength,
+					},
+					body: bytes,
+					}
+			).catch(response => {
+			});
+
+			$.ajax({
+					type: "PATCH",
+					contentType: "application/json; charset=utf-8",
+					url: "<%= update_file_url_profile_connect_media_path %>",
+					data: JSON.stringify({ media_id: "<%= @media.id %>", file_url: "<%= @file_url %>"}),
+					dataType: "json",
+					success: function (result) {
+						let redirectUri = "<%= profile_connect_medium_path(@profile, @media) %>"
+						window.location.href = redirectUri
+					},
+					error: function (){
+							window.alert("something wrong!");
+					}
+			});
+----
+try{
+				var xhr = new window.XMLHttpRequest();
+				xhr.open("PUT", url);
+
+				xhr.upload.addEventListener("progress", function(evt) {
+					if (evt.lengthComputable) {
+						var percentComplete = evt.loaded / evt.total;
+						percentComplete = parseInt(percentComplete * 100);
+						console.log(percentComplete);
+						console.log(evt.loaded, evt.total)
+
+						var elem = document.getElementById('per-bar');
+						elem.style.width = percentComplete + "%";
+
+						if (percentComplete === 100) {
+							setTimeout( () => {redirect()}, 2000)
+						}
+
+					}
+					}, false); 
+					xhr.onerror = function() {
+						<%# redirect() %>
+					};
+					xhr.send(bytes);
+				}catch{
+
+				} 
+
+				function redirect(){
+					$.ajax({
+						type: "PATCH",
+						contentType: "application/json; charset=utf-8",
+						url: "<%= update_file_url_profile_connect_media_path %>",
+						data: JSON.stringify({ media_id: "<%= @media.id %>", file_url: "<%= @file_url %>"}),
+						dataType: "json",
+						success: function (result) {
+							let redirectUri = "<%= profile_connect_medium_path(@profile, @media) %>"
+							window.location.href = redirectUri
+						},
+						error: function (){
+								window.alert("something wrong!");
+						}
+					});
+				}
+				
+				
+
+            <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                <div id="per-bar" class="bg-green-600 text-xs font-medium text-green-100 text-center py-1 leading-none rounded-full" style="width: 0%"></div>
+            </div>
+
+
+
+
+
+-----------
+
+
+
+			 var xhr = new window.XMLHttpRequest();
+
+					xhr.upload.addEventListener("progress", function(evt) {
+						if (evt.lengthComputable) {
+							var percentComplete = evt.loaded / evt.total;
+							percentComplete = parseInt(percentComplete * 100);
+							console.log(percentComplete);
+
+							if (percentComplete === 100) {
+
+							}
+
+						}
+					}, false); 
+
+
+
+				var xhr = new window.XMLHttpRequest();
+				xhr.open("PUT", url, false);
+				xhr.setRequestHeader('X-File-Id', fileId);
+
+				xhr.upload.onprogress = (e) => {
+					console.log(`Uploaded ${e.loaded} - ${e.total}`);
+				};
+				xhr.onerror = function() {  };
+				xhr.send(bytes);
+
+
+$.ajax({
+    url: url,
+    type: 'put',
+    data: bytes,
+    xhr: function () {
+        var xhr = $.ajaxSettings.xhr();
+        xhr.onprogress = function e() {
+            // For downloads
+            if (e.lengthComputable) {
+                console.log(e.loaded / e.total);
+            }
+        };
+        xhr.upload.onprogress = function (e) {
+            // For uploads
+            if (e.lengthComputable) {
+                console.log(e.loaded / e.total);
+            }
+        };
+        return xhr;
+    }
+}).done(function (e) {
+    // Do something
+}).fail(function (e) {
+    // Do something
+});
+
+
+
+================================
+if @mail.parts.present?
+      @mail.parts[0].body.decoded
+    else
+      @mail.decoded
+    end
+    
+    https://www.google.com/search?q=action+mailbox+rails&oq=action+mailbox+&aqs=chrome.0.0i512j69i57j0i22i30j0i22i30i625j0i22i30j69i60l3.6762j0j7&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:c2f8b5e3,vid:jOfAV2QWNOw
+    https://prabinpoudel.com.np/articles/action-mailbox-with-sendgrid/
+    https://edgeguides.rubyonrails.org/action_mailbox_basics.html#sendgrid
+    https://docs.sendgrid.com/for-developers/parsing-email/setting-up-the-inbound-parse-webhook#testing
+
+
+
+    mail.attachments.map do |attachment|
+      # access attachment.fiilename, attachment.decoded, attachment.content_type
+      # You can also add the attachments to a model (e.g. `Resource` here)  connected to ActiveStorage
+      Resource.new(:name => attachment.filename).tap do |r|
+        r.attachment.attach(:io => StringIO.new(attachment.decoded),
+                            :filename => attachment.filename,
+                            :content_type => attachment.content_type)
+        r.save!
+      end
+    end
+
+
+
+ @message.attachments.attach(:io => StringIO.new(attachment.decoded), :filename => attachment.filename,:content_type => attachment.content_type)
+
+@thread_message.attachments.attach(io: open(rails_blob_path(ConnectMessage.first.attachments.first)),filename: abc.png,content_type: 'image/jpg',identify: false)
+
+
+
+https://actionmailbox:legit@changeit@legit-dev-341610.ew.r.appspot.com/rails/action_mailbox/sendgrid/inbound_emails
+
+
+  
+
+ @profile.id == @message.contact&.profile_id ? "bg-blue-50 text-blue-800"
+
+
+
+ 	view all messages button dynamic
+ 	rake task for message and contact labels
+        
+        
+       UPDATE SPEECH SCRIPT FOR EACH SEGMENT
+       current_user.transcript_subscription - codebreak
+
+
+
+=============================messages label code updation
+
+<% count = 0#ConnectMessage.search(tag.name, includes: [:contact, :labels, { attachments_attachments: :blob }], match: :phrase, where: { _and: [{ profile_id: @profile.id }, { trash: false }, { archive: false }] }, misspellings: false, fields: [{label_list: :exact}, :headline, :profile_id, :trash, :archive], page: params[:page], per_page: 40, order: {created_at: :desc} ).count %>
+
+
+
+@profile.connect_messages.inbox.joins(:taggings).includes([:contact, :labels, { attachments_attachments: :blob }]).count %>
+
+tag = ActsAsTaggableOn::Tag.find_by_slug(params[:tag])
+    if tag.blank?
+      tagged = params[:tag]
+    else
+      tagged = tag.name
+    end
+    @messages = ConnectMessage.search(tagged, includes: [:contact, :labels, { attachments_attachments: :blob }], match: :phrase, where: { _and: [{ profile_id: @profile.id }, { trash: false }, { archive: false }] }, misspellings: false, fields: [{label_list: :exact}, :headline, :profile_id, :trash, :archive], page: params[:page], per_page: 40, order: {created_at: :desc} )
+    
+    ==================================================================
+rails_blob_path(media.audio, disposition: "attachment")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Basic commands linux Git DB RUby Rails, sample application with crud operation, upload image with preview, login logout system, devise, action mailer, omniauth, sidekiq, integrate bootstrap and tailwind, nested resources, rails JWt, Stripe integration, Hubspot integration, mailchimp integration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+require 'sinatra'
+require 'json'
+
+post '/webhook' do
+  payload = request.body.read
+  sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+  event = nil
+
+  begin
+    event = Stripe::Webhook.construct_event(
+      payload, sig_header, endpoint_secret
+    )
+  rescue JSON::ParserError => e
+    # Invalid payload
+    return status 400
+  rescue Stripe::SignatureVerificationError => e
+    # Invalid signature
+    return status 400
+  end
+
+  if event['type'] == 'checkout.session.completed'
+    session = event['data']['object']
+    # Step 3: Retrieve the Checkout Session
+    session = Stripe::Checkout::Session.retrieve(session['id'])
+
+    # Step 4: Check if the payment is successful
+    if session.payment_status == 'paid'
+      # Step 5: Create the Invoice
+      invoice = Stripe::Invoice.create(customer: session.customer, amount: session.amount_total, currency: session.currency, payment_method: session.payment_method_types[0], description: 'Invoice for Order #1234',)
+
+      # Step 6: Send the Invoice
+      invoice.send_invoice()
+    end
+  end
+
+  status 200
+end
+
+
+pI.invoice
+invoice.hosted_invoice_url
+invoice.invoice_pdf
+
+
+intent = Stripe::PaymentIntent.retrieve(intent_id)
+customer_id = intent.customer
+
+invoices = Stripe::Invoice.list(customer: customer_id)
+invoice = invoices.select {|i| i.payment_intent == intent_id }.first

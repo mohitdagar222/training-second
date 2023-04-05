@@ -1,0 +1,52 @@
+$ rails new eventlite --webpack=react
+
+<%= javascript_pack_tag 'hello_react' %>
+
+class EventsController < ApplicationController
+  def index
+  end
+end
+
+root 'events#index'
+
+ rails server
+ 
+ 
+ 
+ gem 'react-rails'
+ 
+ bundle install
+ 
+ rails generate react:install
+ 
+ The gem adds the following lines in application.js to load the gem’s JavaScript code (react_ujs) and all code inside the components directory:
+
+var componentRequireContext = require.context("components", true);
+var ReactRailsUJS = require("react_ujs");
+ReactRailsUJS.useContext(componentRequireContext);
+We can use the same Hello component we created earlier with webpacker by moving it to the new components directory. We also need to rename the file to ‘Hello.jsx’ (case sensitive).
+
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
+
+const Hello = props => (
+  <div>Hello {props.name}!</div>
+)
+
+Hello.defaultProps = {
+  name: 'David'
+}
+
+Hello.propTypes = {
+  name: PropTypes.string
+}
+
+export default Hello
+And now inside our view file events/index.html.erb, we can replace the javascript_pack_tag with a call to react_component:
+
+<%= react_component("Hello") %>
+We can also pass another value for the name prop easily:
+
+<%= react_component("Hello", { name: "react-rails" }) %>
