@@ -1,6 +1,13 @@
 
 **rvm installation
 https://www.how2shout.com/linux/how-to-install-rvm-ruby-version-manager-on-ubuntu-20-04-lts/
+sudo apt update
+sudo apt install curl
+curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
+curl -sSL https://get.rvm.io | bash -s stable
+source ~/.bashrc
+rvm --version
 
 **Pre-requisites-
 sudo apt-get install software-properties-common
